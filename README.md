@@ -43,3 +43,8 @@ and add this to your `webpack.common.js`:
   use: ['@svgr/webpack'],
 }
 ```
+
+## TODO
+- [] Add responsiveness.
+- [] Send messages and show them on the messages box.
+- [] ?Create a simple Go backend to handle requests.
