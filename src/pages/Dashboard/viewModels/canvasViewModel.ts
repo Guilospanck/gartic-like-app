@@ -14,13 +14,12 @@ export const useCanvasViewModel = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current
-    canvas.width = window.innerWidth * 2
-    canvas.height = window.innerHeight * 2
-    canvas.style.width = `${window.innerWidth}px`
-    canvas.style.height = `${window.innerHeight}px`
+    canvas.style.width = `100%`
+    canvas.style.height = `100%`
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
 
     const context = canvas.getContext("2d")
-    context.scale(2, 2)
     context.lineCap = "round"
     context.strokeStyle = "black"
     context.lineWidth = 5

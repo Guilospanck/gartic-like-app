@@ -3,6 +3,8 @@ import React from "react"
 export const DashboardView = ({ CanvasComponent }) => {
 
   return (
-    <CanvasComponent />
+    <div style={{border: '1px solid red', width: '500px'}}>
+      <CanvasComponent />
+    </div>
   )
 }
