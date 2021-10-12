@@ -26,8 +26,17 @@ export const useCanvasViewModel = () => {
     contextRef.current = context
   }, [])
 
-  const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent }) => {
-    const { offsetX, offsetY } = nativeEvent
+  const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
+    let offsetX, offsetY
+    if(nativeEvent instanceof MouseEvent){
+       offsetX = nativeEvent.offsetX
+       offsetY = nativeEvent.offsetY
+    } else {
+      const r = canvasRef.current.getBoundingClientRect()
+      offsetX = nativeEvent.touches[0].clientX - r.left
+      offsetY = nativeEvent.touches[0].clientY - r.top
+    }
+    
     contextRef.current.beginPath()
     contextRef.current.moveTo(offsetX, offsetY)
     setIsDrawing(true)
@@ -38,10 +47,19 @@ export const useCanvasViewModel = () => {
     setIsDrawing(false)
   }
 
-  const draw = ({ nativeEvent }: { nativeEvent: MouseEvent }) => {
+  const draw = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
     if (!isDrawing) return
 
-    const { offsetX, offsetY } = nativeEvent
+    let offsetX, offsetY
+    if(nativeEvent instanceof MouseEvent){
+       offsetX = nativeEvent.offsetX
+       offsetY = nativeEvent.offsetY
+    } else {
+      const r = canvasRef.current.getBoundingClientRect()
+      offsetX = nativeEvent.touches[0].clientX - r.left
+      offsetY = nativeEvent.touches[0].clientY - r.top
+    }
+
     contextRef.current.lineTo(offsetX, offsetY)
     contextRef.current.stroke()
   }

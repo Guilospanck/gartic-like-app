@@ -8,7 +8,6 @@ type CanvasViewModelProps = {
 export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
   return (
     <canvas
-      style={{ width: '100%', height: '100%' }}
       onMouseDown={viewModel.startDrawing}
       onMouseUp={viewModel.finishDrawing}
       onMouseMove={viewModel.draw}

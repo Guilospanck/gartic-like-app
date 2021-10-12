@@ -16,6 +16,16 @@ const CanvasComponent = () => {
 
 export const Dashboard = () => {
   return (
-    <DashboardView CanvasComponent={CanvasComponent} />
+    <>
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+      <DashboardView CanvasComponent={CanvasComponent} />
+    </>
   )
 }
