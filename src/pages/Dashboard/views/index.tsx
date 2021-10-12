@@ -1,10 +1,11 @@
 import React from "react"
+import { Container } from "./styles"
 
-export const DashboardView = ({ CanvasComponent }) => {
+export const DashboardView = ({ CanvasComponent, ChatComponent }) => {
   return (
-    <div style={{ border: '1px solid red', width: '500px' }}>
-     
+    <Container>
       <CanvasComponent />
-    </div>
+      <ChatComponent />
+    </Container>
   )
 }
