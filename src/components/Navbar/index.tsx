@@ -8,6 +8,9 @@ import {
   NavMenu,
   NavBtn,
   NavBtnLink,
+  GarticLogoLink,
+  StyledGarticSVGIcon,
+  NavRight
 } from './styles';
 
 export const Navbar = () => {
@@ -19,6 +22,9 @@ export const Navbar = () => {
           <StyledBars />
         </ButtonBars>
         <NavMenu>
+          <GarticLogoLink to='/'>
+            <StyledGarticSVGIcon />
+          </GarticLogoLink>
           <NavLink to='/' exact={true} activeStyle={{}}>
             Home
           </NavLink>
@@ -29,9 +35,11 @@ export const Navbar = () => {
             Sign Up
           </NavLink>
         </NavMenu>
-        <NavBtn>
-          <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-        </NavBtn>
+        <NavRight>
+          <NavBtn>
+            <NavBtnLink to='/signin'>Sign In</NavBtnLink>
+          </NavBtn>
+        </NavRight>
       </Nav>
     </>
   )

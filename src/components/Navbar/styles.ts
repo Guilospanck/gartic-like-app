@@ -1,13 +1,32 @@
 import { FaBars } from 'react-icons/fa'
+import GarticLikeIcon from '../../assets/svg/gartic.svg'
 import styled from "styled-components"
 import { NavLink as Link, NavLinkProps } from 'react-router-dom';
+
+export const StyledGarticSVGIcon = styled(GarticLikeIcon)`
+  width: 100%;
+  height: 100%;
+`
+
+export const GarticLogoLink = styled(Link)`
+  width: 100px;
+  height: 100%;
+  border: none;
+  cursor: pointer;
+  background: none;
+`
+
+export const NavRight = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
+`
 
 export const Nav = styled.nav`
   background: #884eef;
   height: 85px;
   display: flex;
-  justify-content: space-between;
-  padding: 0.2rem calc((100vw - 1000px) / 2);
+  justify-content: flex-start;
   position: fixed;
   top: 0;
   width: 100%;
