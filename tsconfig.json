@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "rootDir": ".",
+    "baseUrl": "src",
+    "paths": {
+      "~/*": ["*"]
+    },
+    "allowJs": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src", "jest.setup.ts", "custom.d.ts"],
+  "exclude": ["src/**/*.spec.ts", "node_modules"]
+}
