@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const ChatContainer = styled.div`
   width: 100%;
-  height: inherit;
+  height: 100%;
   display: grid;
   justify-content: center;
   align-items: center;

@@ -4,8 +4,8 @@ import { Container } from "./styles"
 export const DashboardView = ({ CanvasComponent, ChatComponent }) => {
   return (
     <Container>
-      <CanvasComponent />
-      <ChatComponent />
+      <CanvasComponent item />
+      <ChatComponent item />
     </Container>
   )
 }
