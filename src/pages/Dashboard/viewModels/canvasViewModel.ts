@@ -1,7 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from "react"
 
-export const Home = () => {
+export interface IUseCanvasViewModel {
+  startDrawing: ({ nativeEvent }: { nativeEvent: MouseEvent }) => void,
+  finishDrawing: () => void,
+  draw: ({ nativeEvent }: { nativeEvent: MouseEvent }) => void,
+  canvasRef: React.MutableRefObject<any>
+}
 
+export const useCanvasViewModel = () => {
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
@@ -21,7 +27,7 @@ export const Home = () => {
     contextRef.current = context
   }, [])
 
-  const startDrawing = ({ nativeEvent }) => {
+  const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent }) => {
     const { offsetX, offsetY } = nativeEvent
     contextRef.current.beginPath()
     contextRef.current.moveTo(offsetX, offsetY)
@@ -33,23 +39,18 @@ export const Home = () => {
     setIsDrawing(false)
   }
 
-  const draw = ({ nativeEvent }) => {
-    if(!isDrawing) return
-    
+  const draw = ({ nativeEvent }: { nativeEvent: MouseEvent }) => {
+    if (!isDrawing) return
+
     const { offsetX, offsetY } = nativeEvent
     contextRef.current.lineTo(offsetX, offsetY)
     contextRef.current.stroke()
   }
 
-  return (
-    <>
-      <p>HomeView with props viewModel(which, in turn, receives homeUseCase)</p>
-      <canvas
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={draw}
-        ref={canvasRef}
-      />
-    </>
-  )
+  return {
+    startDrawing,
+    finishDrawing,
+    draw,
+    canvasRef
+  }
 }

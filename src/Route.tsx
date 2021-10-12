@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import { Home } from './pages/Home'
+import { Dashboard } from './pages/Dashboard'
 
 export const AppRoute = () => {
 
@@ -10,7 +10,10 @@ export const AppRoute = () => {
 
       <Switch>
         <Route path="/" exact>
-          <Home />
+          <p>Home /</p>
+        </Route>
+        <Route path="/dashboard">
+          <Dashboard />
         </Route>
 
       </Switch>
