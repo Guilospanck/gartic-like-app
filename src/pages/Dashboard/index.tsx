@@ -18,11 +18,8 @@ const ChatComponent = () => {
   return <ChatView />
 }
 
-
 export const Dashboard = () => {
   return (
-    <>
-      <DashboardView CanvasComponent={CanvasComponent} ChatComponent={ChatComponent}/>
-    </>
+    <DashboardView CanvasComponent={CanvasComponent} ChatComponent={ChatComponent} />
   )
 }

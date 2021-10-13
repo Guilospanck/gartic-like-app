@@ -4,12 +4,11 @@ export const Container = styled.div`
   display: grid;
   justify-content: center;
   align-items: center;
-  justify-items: center;
-  grid-template-columns: [canvas] 74% [chat] 25%;
-  column-gap: 1%;
+  justify-items: center;  
+  grid-gap: 1%;
   height: 100%;
 
-  // @media screen and (max-width: 768px) {
-  //   grid-template-rows: [canvas] 74% [chat] 25%;
-  // }
+  @media(min-width: 600px) {
+    grid-template-columns: [canvas] 74% [chat] 25%;
+  }
 `

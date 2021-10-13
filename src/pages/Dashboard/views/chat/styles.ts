@@ -7,22 +7,35 @@ export const ChatContainer = styled.div`
   justify-content: center;
   align-items: center;
   justify-items: center;
-  grid-template-rows: [messages] 95% [inputText] 4%;
-  row-gap: 1%;
+  grid-gap: 1%;
+
+  grid-template-rows: [messages] 75% [inputText] 24%;
+
+  @media(min-width: 600px) {
+    grid-template-rows: [messages] 95% [inputText] 4%;
+  }
 `
 
 export const MessagesContainer = styled.div`
-  width: 25vw;
+  width: 100vw;
   height: 100%;
   display: flex;
   border: none;
   box-shadow: -1px 2px 12px 0px #c7c6c5;
+
+  @media(min-width: 600px) {
+    width: 100%;
+  }
 `
 
 export const TextContainer = styled.div`
-  width: 25vw;
+  width: 100vw;
   height: 100%;
   display: flex;
+
+  @media(min-width: 600px) {
+    width: 100%;
+  }
 `
 
 export const TextAreaStyled = styled.textarea`
