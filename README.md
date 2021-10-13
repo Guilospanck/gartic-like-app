@@ -45,6 +45,7 @@ and add this to your `webpack.common.js`:
 ```
 
 ## TODO
-- [] Add responsiveness.
-- [] Send messages and show them on the messages box.
+- [x] Add responsiveness.
+- [] Send messages.
+- [] Show them on the messages box.
 - [] ?Create a simple Go backend to handle requests.

@@ -7,6 +7,7 @@ import { ChatView } from './views/chat'
 
 /** ViewModels */
 import { useCanvasViewModel } from './viewModels/canvasViewModel'
+import { useChatViewModel } from './viewModels/chatViewModel'
 
 /** Components */
 const CanvasComponent = () => {
@@ -15,7 +16,8 @@ const CanvasComponent = () => {
 }
 
 const ChatComponent = () => {
-  return <ChatView />
+  const viewModel = useChatViewModel()
+  return <ChatView viewModel={viewModel}/>
 }
 
 export const Dashboard = () => {
