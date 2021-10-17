@@ -1,14 +1,18 @@
 import styled from "styled-components"
 
 export const Container = styled.div`
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;  
-  grid-gap: 1%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 1%;
+  width: 100%;
   height: 100%;
 
-  @media(min-width: 600px) {
-    grid-template-columns: [canvas] 74% [chat] 25%;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;    
+
+  @media(min-width: 800px) {
+    flex-direction: row;
   }
 `

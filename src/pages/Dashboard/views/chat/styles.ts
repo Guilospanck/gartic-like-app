@@ -1,46 +1,44 @@
 import styled from "styled-components"
 
 export const ChatContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: grid;
   justify-content: center;
   align-items: center;
   justify-items: center;
-  grid-gap: 1%;
+  
+  width: 100%;
+  flex-grow: 3;
 
-  grid-template-rows: [messages] 75% [inputText] 24%;
+  display: flex;
+  flex-direction: column;
+  gap: 1%;
 
-  @media(min-width: 600px) {
-    grid-template-rows: [messages] 95% [inputText] 4%;
+  @media(min-width: 800px) {
+    height: 100%;
   }
 `
 
 export const MessagesContainer = styled.div`
-  width: 100vw;
-  height: 100%;
   display: flex;
-  border: none;
-  box-shadow: -1px 2px 12px 0px #c7c6c5;
+  flex-grow: 4;
+  width: 100%;
+  height: 100px;
 
-  @media(min-width: 600px) {
-    width: 100%;
-  }
+  border: none;
+  box-shadow: -1px 2px 12px 0px #c7c6c5;  
 `
 
 export const TextContainer = styled.div`
-  width: 100vw;
-  height: 100%;
   display: flex;
+  width: 100%;
+  flex-grow: 1;
 
-  @media(min-width: 600px) {
-    width: 100%;
-  }
+  flex-direction: row;
 `
 
 export const TextAreaStyled = styled.textarea`
-  width: 100%;
+  flex-grow: 2;
   height: 100%;
+
   resize: none;
   border: none;
   box-shadow: -1px 2px 12px 0px #c7c6c5;
@@ -53,6 +51,8 @@ export const TextAreaStyled = styled.textarea`
 `
 
 export const SendButton = styled.button`
+  height: 100%;
+
   border: none;
   background: #1dac1d;
   color: white;
