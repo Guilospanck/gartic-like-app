@@ -9,7 +9,12 @@ interface Props {
 export const ChatView = ({ viewModel }: Props) => {
   return (
     <ChatContainer>
-      <MessagesContainer />
+      <MessagesContainer>
+        <div>{viewModel.messageReceived?.username}</div>
+        <div>{viewModel.messageReceived?.room}</div>
+        <div>{viewModel.messageReceived?.message}</div>
+        <div>{viewModel.messageReceived?.timestamp}</div>
+      </MessagesContainer>
       <TextContainer>
         <TextAreaStyled
           name="writemessage"

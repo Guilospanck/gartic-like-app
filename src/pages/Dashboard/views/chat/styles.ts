@@ -19,6 +19,7 @@ export const ChatContainer = styled.div`
 
 export const MessagesContainer = styled.div`
   display: flex;
+  flex-direction: column;
   flex-grow: 4;
   width: 100%;
   height: 100px;
