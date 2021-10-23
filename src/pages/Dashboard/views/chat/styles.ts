@@ -14,6 +14,7 @@ export const ChatContainer = styled.div`
 
   @media(min-width: 800px) {
     height: 100%;
+    width: 50%;
   }
 `
 
