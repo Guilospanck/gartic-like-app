@@ -28,6 +28,10 @@ export const useChatViewModel = () => {
   const messages = useSelector((store: RootState) => store.messageReducer.messages)
 
   useEffect(() => {
+    document.getElementById("messages-container").scrollTop = document.getElementById("messages-container").scrollHeight
+  }, [messages])
+
+  useEffect(() => {
     if (socket) {
       socket.onmessage = (event) => {
         if (event?.data) {

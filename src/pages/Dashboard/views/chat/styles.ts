@@ -21,12 +21,71 @@ export const ChatContainer = styled.div`
 export const MessagesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 4;
+  flex-grow: 40;
   width: 100%;
-  height: 100px;
+  height: 100%;
 
+  overflow-y: auto;
+  padding-bottom: 8px;
   border: none;
   box-shadow: -1px 2px 12px 0px #c7c6c5;  
+`
+
+export const MessageChatBalloon = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  background: #884eef;
+  border: none;
+  border-radius: 15px;
+  padding: 3%;
+  margin: 3px 7px;
+  
+  box-shadow: 3px 3px 6px 0px #191919;
+  color: white;
+
+  height: 40px;
+  gap: 15px;
+
+  @media(min-width: 800px) {
+    height: 70px;
+    flex-direction: column;    
+    gap: 0px;
+  }
+`
+
+export const UsernameContainer = styled.div`
+  display: flex;
+  font-weight: bold;
+
+  @media(min-width: 800px) {
+  }
+`
+
+export const MessageFromUserContainer = styled.div`
+  display: flex;  
+  word-break: break-word;
+
+  @media(min-width: 800px) {
+    word-break: normal;
+  }
+`
+
+export const DateContainer = styled.div`   
+  align-content: center;
+  justify-content: flex-end;
+  align-items: center;
+
+  width: 100%;
+  font-size: 10px;
+  font-weight: bold;
+
+  display: none;
+
+  @media(min-width: 800px) {
+    display: flex; 
+  }
 `
 
 export const TextContainer = styled.div`
