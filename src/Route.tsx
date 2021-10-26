@@ -16,7 +16,7 @@ export const AppRoute = () => {
     const socket = new WebSocket(url)
 
     socket.onopen = (event) => {
-      console.log("Opened: socket \n")
+      console.log("Opened: \n")
       console.log(event)
     }
 

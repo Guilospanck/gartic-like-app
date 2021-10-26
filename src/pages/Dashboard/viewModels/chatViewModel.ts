@@ -20,7 +20,7 @@ export interface IUseChatViewModel {
 }
 
 export const useChatViewModel = () => {
-  const [message, setMessage] = useState("")
+  const [message, setMessage] = useState("")  
 
   const dispatchActions = useDispatch()
 
