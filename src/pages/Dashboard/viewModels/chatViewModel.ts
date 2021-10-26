@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+
 import { RootState } from "~/store/modules/rootReducers"
+import { dispatchMessage } from '~/store/modules/messages/actions'
 
 type JsonData = {
   username: string
@@ -14,20 +16,25 @@ export interface IUseChatViewModel {
   message: string,
   handleMessage: (message: string) => void,
   handleTextAreaKeyDown: (e: React.KeyboardEvent) => void,
-  messageReceived: JsonData
+  messages: JsonData[]
 }
 
 export const useChatViewModel = () => {
   const [message, setMessage] = useState("")
-  const [messageReceived, setMessageReceived] = useState()
+
+  const dispatchActions = useDispatch()
 
   const socket = useSelector((store: RootState) => store.socketReducer.socket)
+  const messages = useSelector((store: RootState) => store.messageReducer.messages)
 
   useEffect(() => {
     if (socket) {
       socket.onmessage = (event) => {
         if (event?.data) {
-          setMessageReceived(JSON.parse(event.data))
+          const msg: JsonData = JSON.parse(event.data)
+          dispatchActions(dispatchMessage({
+            message: msg
+          }))
         }
       }
     }
@@ -40,20 +47,21 @@ export const useChatViewModel = () => {
   const handleTextAreaKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && e.shiftKey == false) {
       e.preventDefault()
+      if (message.length === 0) return
       sendMessage()
     }
   }
 
   const sendMessage = () => {
-    setMessage("")
-
-    socket.send(JSON.stringify({
-      username: "GuiSend",
-      room: "whiteroom",
+    const msgToSend = {
+      username: "Guilospanck",
+      room: "1",
       message,
       timestamp: new Date().toLocaleString('pt-br')
-    }))
+    }
 
+    socket.send(JSON.stringify(msgToSend))
+    setMessage("")
   }
 
   return {
@@ -61,6 +69,6 @@ export const useChatViewModel = () => {
     message,
     handleMessage,
     handleTextAreaKeyDown,
-    messageReceived
+    messages
   }
 }

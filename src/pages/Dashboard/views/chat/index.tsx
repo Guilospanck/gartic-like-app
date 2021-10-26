@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { IUseChatViewModel } from "../../viewModels/chatViewModel"
 import { ChatContainer, MessagesContainer, TextContainer, TextAreaStyled, SendButton } from "./styles"
 
@@ -7,13 +7,22 @@ interface Props {
 }
 
 export const ChatView = ({ viewModel }: Props) => {
+  
   return (
     <ChatContainer>
       <MessagesContainer>
-        <div>{viewModel.messageReceived?.username}</div>
-        <div>{viewModel.messageReceived?.room}</div>
-        <div>{viewModel.messageReceived?.message}</div>
-        <div>{viewModel.messageReceived?.timestamp}</div>
+        {
+          viewModel.messages?.map((msg, index) => {
+            return (
+              <Fragment key={index}>
+                <div>{msg?.username}</div>
+                <div>{msg?.room}</div>
+                <div>{msg?.message}</div>
+                <div>{msg?.timestamp}</div>
+              </Fragment>
+            )
+          })
+        }
       </MessagesContainer>
       <TextContainer>
         <TextAreaStyled
