@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import { RootState } from "~/store/modules/rootReducers"
 import { dispatchMessage } from '~/store/modules/messages/actions'
+import { useLocation } from "react-router-dom"
 
 type JsonData = {
   username: string
@@ -19,30 +20,57 @@ export interface IUseChatViewModel {
   messages: JsonData[]
 }
 
+let socket = null
+
 export const useChatViewModel = () => {
-  const [message, setMessage] = useState("")  
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search)
+  }
+  const query = useQuery()
+
+  const [username, setUsername] = useState(query.get('username'))
+  const room = "dashboard"
+
+  const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
+
+  const [message, setMessage] = useState("")
 
   const dispatchActions = useDispatch()
 
-  const socket = useSelector((store: RootState) => store.socketReducer.socket)
   const messages = useSelector((store: RootState) => store.messageReducer.messages)
 
   useEffect(() => {
     document.getElementById("messages-container").scrollTop = document.getElementById("messages-container").scrollHeight
   }, [messages])
 
-  useEffect(() => {
-    if (socket) {
-      socket.onmessage = (event) => {
-        if (event?.data) {
-          const msg: JsonData = JSON.parse(event.data)
-          dispatchActions(dispatchMessage({
-            message: msg
-          }))
-        }
+  const memoizedSocket = useCallback(() => {
+    if (!socket) return
+
+    socket.onopen = (event) => {
+      console.log("Opened dashboard: \n")
+      console.log(event)
+    }
+
+    socket.onerror = (event) => {
+      console.log("Error dashboard: \n")
+      console.log(event)
+    }
+
+    socket.onmessage = (event) => {
+      console.log(event)
+      if (event?.data) {
+        const msg: JsonData = JSON.parse(event.data)
+        dispatchActions(dispatchMessage({
+          message: msg
+        }))
       }
     }
-  }, [socket])
+  }, [])
+
+  useEffect(() => {
+    socket = new WebSocket(url)
+    memoizedSocket()
+  }, [])
 
   const handleMessage = (message: string) => {
     setMessage(message)
@@ -58,8 +86,8 @@ export const useChatViewModel = () => {
 
   const sendMessage = () => {
     const msgToSend = {
-      username: "Guilospanck",
-      room: "1",
+      username: username,
+      room: room,
       message,
       timestamp: new Date().toLocaleString('pt-br')
     }

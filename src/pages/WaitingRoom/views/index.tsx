@@ -16,14 +16,14 @@ export const WaitingRoomView = ({ viewModel }: Props) => {
   return (
     <>
       {
-        viewModel.participants.map((item, index) => (
+        viewModel.rooms.map((item, index) => (
           <RoomInfoContainer key={index}>
             <InfoContainer>
-              <RoomDiv>Batata</RoomDiv>
+              <RoomDiv>{item.room}</RoomDiv>
             </InfoContainer>
 
             <InfoContainer>
-              <ParticipantsDiv><strong>Participants:&nbsp;</strong> {item}</ParticipantsDiv>
+              <ParticipantsDiv><strong>Participants:&nbsp;</strong> {item.numOfParticipants}</ParticipantsDiv>
             </InfoContainer>
 
             <InfoContainer>
