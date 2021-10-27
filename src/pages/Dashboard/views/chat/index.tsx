@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { IUseChatViewModel } from "../../viewModels/chatViewModel"
 import {
   ChatContainer, MessagesContainer, TextContainer, TextAreaStyled, SendButton,
