@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useHistory, useLocation } from "react-router-dom"
 
 export interface IUseWaitingRoomViewModel {
@@ -40,24 +40,10 @@ export const useWaitingRoomViewModel = () => {
   const [username, setUsername] = useState(query.get('username'))
 
   const room = "waitingroomgarticlikeapp"
+  const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
 
-  const _fillParticipantsAndRoomsArrayWithMsgReceived = (msg: WaitingRoomData[]) => {
-    const dataToRenderArray: DataToRender[] = []
-    msg.forEach(item => {
-      if(item.room === room) return
-      
-      dataToRenderArray.push({
-        room: item.room,
-        numOfParticipants: item.participants.length
-      })
-    })
-
-    setRooms(dataToRenderArray)
-  }
-
-  useEffect(() => {
-    const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
-    socket = new WebSocket(url)
+  const memoizedSocket = useCallback(() => {
+    if (!socket) return
 
     socket.onopen = (event) => {
       console.log("Opened waiting room socket: \n")
@@ -75,7 +61,22 @@ export const useWaitingRoomViewModel = () => {
         _fillParticipantsAndRoomsArrayWithMsgReceived(msg)
       }
     }
+  }, [])
 
+  useEffect(() => {
+    socket = new WebSocket(url)
+    memoizedSocket()
+
+    return function cleanup() {
+      const msgToSend: JsonData = {
+        username: username,
+        room: room,
+        message: 'closing waiting room...',
+        timestamp: new Date().toLocaleString('pt-br'),
+        close: true
+      }
+      socket.send(JSON.stringify(msgToSend))
+    }
   }, [])
 
 
@@ -90,19 +91,24 @@ export const useWaitingRoomViewModel = () => {
   const onNewRoomClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
 
-    const msgToSend: JsonData = {
-      username: username,
-      room: room,
-      message: 'closing...',
-      timestamp: new Date().toLocaleString('pt-br'),
-      close: true
-    }
-    socket.send(JSON.stringify(msgToSend))
-
     history.push({
       pathname: "/newroom",
       search: `?username=${username}`
     })
+  }
+
+  const _fillParticipantsAndRoomsArrayWithMsgReceived = (msg: WaitingRoomData[]) => {
+    const dataToRenderArray: DataToRender[] = []
+    msg.forEach(item => {
+      if (item.room === room) return
+
+      dataToRenderArray.push({
+        room: item.room,
+        numOfParticipants: item.participants.length
+      })
+    })
+
+    setRooms(dataToRenderArray)
   }
 
   return {

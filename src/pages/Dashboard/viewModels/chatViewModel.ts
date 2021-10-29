@@ -59,9 +59,9 @@ export const useChatViewModel = () => {
     }
 
     socket.onmessage = (event) => {
-      console.log(event)
       if (event?.data) {
         const msg: JsonData = JSON.parse(event.data)
+        console.log(msg)
         dispatchActions(dispatchMessage({
           message: msg
         }))
@@ -77,7 +77,7 @@ export const useChatViewModel = () => {
       const msgToSend: JsonData = {
         username: username,
         room: room,
-        message,
+        message: 'closing dashboard...',
         timestamp: new Date().toLocaleString('pt-br'),
         close: true
       }  
