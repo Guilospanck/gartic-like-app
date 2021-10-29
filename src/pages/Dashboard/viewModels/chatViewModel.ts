@@ -10,6 +10,7 @@ type JsonData = {
   room: string
   message: string
   timestamp: string
+  close: boolean
 }
 
 export interface IUseChatViewModel {
@@ -17,7 +18,8 @@ export interface IUseChatViewModel {
   message: string,
   handleMessage: (message: string) => void,
   handleTextAreaKeyDown: (e: React.KeyboardEvent) => void,
-  messages: JsonData[]
+  messages: JsonData[],
+  room: string
 }
 
 let socket = null
@@ -29,7 +31,7 @@ export const useChatViewModel = () => {
   const query = useQuery()
 
   const [username, setUsername] = useState(query.get('username'))
-  const room = "dashboard"
+  const [room, setRoom] = useState(query.get('room'))
 
   const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
 
@@ -70,6 +72,17 @@ export const useChatViewModel = () => {
   useEffect(() => {
     socket = new WebSocket(url)
     memoizedSocket()
+
+    return function cleanup () {
+      const msgToSend: JsonData = {
+        username: username,
+        room: room,
+        message,
+        timestamp: new Date().toLocaleString('pt-br'),
+        close: true
+      }  
+      socket.send(JSON.stringify(msgToSend))
+    }
   }, [])
 
   const handleMessage = (message: string) => {
@@ -85,11 +98,12 @@ export const useChatViewModel = () => {
   }
 
   const sendMessage = () => {
-    const msgToSend = {
+    const msgToSend: JsonData = {
       username: username,
       room: room,
       message,
-      timestamp: new Date().toLocaleString('pt-br')
+      timestamp: new Date().toLocaleString('pt-br'),
+      close: false
     }
 
     socket.send(JSON.stringify(msgToSend))
@@ -101,6 +115,7 @@ export const useChatViewModel = () => {
     message,
     handleMessage,
     handleTextAreaKeyDown,
-    messages
+    messages,
+    room
   }
 }

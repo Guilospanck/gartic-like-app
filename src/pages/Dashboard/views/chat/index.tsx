@@ -16,6 +16,7 @@ export const ChatView = ({ viewModel }: Props) => {
       <MessagesContainer id="messages-container">
         {
           viewModel.messages?.map((msg, index) => {
+            if(msg.room !== viewModel.room) return null
             return (
               <MessageChatBalloon key={index}>
                 <UsernameContainer>{msg?.username}</UsernameContainer>

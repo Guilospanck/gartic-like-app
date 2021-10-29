@@ -1,11 +1,19 @@
 import styled from "styled-components"
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
 export const RoomInfoContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-around;
   align-items: center;
+  width: 98%;
 
   gap: 1px;
 
@@ -15,8 +23,8 @@ export const RoomInfoContainer = styled.div`
 
   border: 1px solid #c0b9b9;
   border-radius: 5px;
-  margin: 10px;
   padding: 5px;
+  margin-bottom: 5px;
 
 `
 
@@ -43,4 +51,16 @@ export const EnterButton = styled.button`
   color: white;
   border-radius: 5px;
   cursor: pointer;
+  text-transform: uppercase;
+`
+
+export const NewRoomButton = styled.button`
+  border: none; 
+  padding: 15px;
+  width: 120px;
+  background: #884eef;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-transform: uppercase;
 `

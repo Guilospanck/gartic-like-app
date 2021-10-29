@@ -3,7 +3,8 @@ import { useHistory, useLocation } from "react-router-dom"
 
 export interface IUseWaitingRoomViewModel {
   rooms: DataToRender[],
-  onEnterClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  onEnterClick: (e: React.MouseEvent<HTMLButtonElement>, room: string) => void,
+  onNewRoomClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
 }
 
 type WaitingRoomData = {
@@ -15,6 +16,16 @@ type DataToRender = {
   room: string,
   numOfParticipants: number
 }
+
+type JsonData = {
+  username: string
+  room: string
+  message: string
+  timestamp: string
+  close: boolean
+}
+
+let socket = null
 
 export const useWaitingRoomViewModel = () => {
 
@@ -32,8 +43,9 @@ export const useWaitingRoomViewModel = () => {
 
   const _fillParticipantsAndRoomsArrayWithMsgReceived = (msg: WaitingRoomData[]) => {
     const dataToRenderArray: DataToRender[] = []
-
     msg.forEach(item => {
+      if(item.room === room) return
+      
       dataToRenderArray.push({
         room: item.room,
         numOfParticipants: item.participants.length
@@ -45,7 +57,7 @@ export const useWaitingRoomViewModel = () => {
 
   useEffect(() => {
     const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
-    const socket = new WebSocket(url)
+    socket = new WebSocket(url)
 
     socket.onopen = (event) => {
       console.log("Opened waiting room socket: \n")
@@ -57,9 +69,9 @@ export const useWaitingRoomViewModel = () => {
       console.log(event)
     }
 
-    socket.onmessage = (event) => {      
+    socket.onmessage = (event) => {
       if (event?.data) {
-        const msg: WaitingRoomData[] = JSON.parse(event.data)        
+        const msg: WaitingRoomData[] = JSON.parse(event.data)
         _fillParticipantsAndRoomsArrayWithMsgReceived(msg)
       }
     }
@@ -67,16 +79,35 @@ export const useWaitingRoomViewModel = () => {
   }, [])
 
 
-  const onEnterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onEnterClick = (e: React.MouseEvent<HTMLButtonElement>, room: string) => {
     e.stopPropagation()
     history.push({
       pathname: "/dashboard",
+      search: `?username=${username}&room=${room}`
+    })
+  }
+
+  const onNewRoomClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+
+    const msgToSend: JsonData = {
+      username: username,
+      room: room,
+      message: 'closing...',
+      timestamp: new Date().toLocaleString('pt-br'),
+      close: true
+    }
+    socket.send(JSON.stringify(msgToSend))
+
+    history.push({
+      pathname: "/newroom",
       search: `?username=${username}`
     })
   }
 
   return {
     rooms,
-    onEnterClick
+    onEnterClick,
+    onNewRoomClick
   }
 }

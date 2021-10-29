@@ -5,6 +5,7 @@ type JsonData = {
   room: string
   message: string
   timestamp: string
+  close: boolean
 }
 
 export interface DispatchMessagePayload {
