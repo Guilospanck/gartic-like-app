@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react"
 import { useHistory, useLocation } from "react-router-dom"
 
+import { JsonData } from "~/shared/JsonDataWebsocketMessage"
+
 export interface IUseWaitingRoomViewModel {
   rooms: DataToRender[],
   onEnterClick: (e: React.MouseEvent<HTMLButtonElement>, room: string) => void,
@@ -15,14 +17,6 @@ type WaitingRoomData = {
 type DataToRender = {
   room: string,
   numOfParticipants: number
-}
-
-type JsonData = {
-  username: string
-  room: string
-  message: string
-  timestamp: string
-  close: boolean
 }
 
 let socket = null

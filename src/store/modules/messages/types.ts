@@ -1,12 +1,6 @@
 import { ActionTypes } from "./actionTypes"
 
-type JsonData = {
-  username: string
-  room: string
-  message: string
-  timestamp: string
-  close: boolean
-}
+import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 
 export interface DispatchMessagePayload {
   message: JsonData

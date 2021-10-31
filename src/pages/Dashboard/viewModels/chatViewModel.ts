@@ -1,17 +1,12 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 
 import { RootState } from "~/store/modules/rootReducers"
 import { dispatchMessage } from '~/store/modules/messages/actions'
 import { useLocation } from "react-router-dom"
 
-type JsonData = {
-  username: string
-  room: string
-  message: string
-  timestamp: string
-  close: boolean
-}
+import { DashboardContext } from "../context/dashboardContext"
+import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 
 export interface IUseChatViewModel {
   sendMessage: () => void,
@@ -30,8 +25,13 @@ export const useChatViewModel = () => {
   }
   const query = useQuery()
 
-  const [username, setUsername] = useState(query.get('username'))
-  const [room, setRoom] = useState(query.get('room'))
+  const { socketRef, usernameRef, roomRef, coordinatesRef, setCoordinatesState } = useContext(DashboardContext)
+
+  const [username] = useState(query.get('username'))
+  const [room] = useState(query.get('room'))  
+
+  usernameRef.current = username
+  roomRef.current = room
 
   const url = `${process.env.WEBSOCKET_URL}?username=${username}&room=${room}`
 
@@ -62,6 +62,9 @@ export const useChatViewModel = () => {
       if (event?.data) {
         const msg: JsonData = JSON.parse(event.data)
         console.log(msg)
+        if(msg.canvasCoordinates){
+          setCoordinatesState(JSON.parse(msg.canvasCoordinates))
+        }
         dispatchActions(dispatchMessage({
           message: msg
         }))
@@ -69,19 +72,24 @@ export const useChatViewModel = () => {
     }
   }, [])
 
-  useEffect(() => {
+  useEffect(() => {    
     socket = new WebSocket(url)
+    socketRef.current = socket
     memoizedSocket()
 
-    return function cleanup () {
+    return function cleanup() {
       const msgToSend: JsonData = {
         username: username,
         room: room,
         message: 'closing dashboard...',
         timestamp: new Date().toLocaleString('pt-br'),
         close: true
-      }  
+      }
       socket.send(JSON.stringify(msgToSend))
+      socketRef.current = null
+      usernameRef.current = null
+      roomRef.current = null
+      coordinatesRef.current = null
     }
   }, [])
 

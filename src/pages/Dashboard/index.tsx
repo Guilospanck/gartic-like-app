@@ -15,13 +15,18 @@ const CanvasComponent = () => {
   return <CanvasView viewModel={canvasViewModel} />
 }
 
+/** Context */
+import { DashboardContextProvider } from './context/dashboardContext'
+
 const ChatComponent = () => {
   const viewModel = useChatViewModel()
-  return <ChatView viewModel={viewModel}/>
+  return <ChatView viewModel={viewModel} />
 }
 
 export const Dashboard = () => {
   return (
-    <DashboardView CanvasComponent={CanvasComponent} ChatComponent={ChatComponent} />
+    <DashboardContextProvider>
+      <DashboardView CanvasComponent={CanvasComponent} ChatComponent={ChatComponent} />
+    </DashboardContextProvider>
   )
 }
