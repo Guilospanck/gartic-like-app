@@ -2,7 +2,7 @@ export type JsonData = {
   username: string
   room: string
   message: string
-  timestamp: string
+  date: string
   close: boolean,
   canvasCoordinates?: string
 }

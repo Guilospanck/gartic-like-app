@@ -66,7 +66,7 @@ export const useWaitingRoomViewModel = () => {
         username: username,
         room: room,
         message: 'closing waiting room...',
-        timestamp: new Date().toLocaleString('pt-br'),
+        date: new Date().toLocaleString('pt-br'),
         close: true
       }
       socket.send(JSON.stringify(msgToSend))

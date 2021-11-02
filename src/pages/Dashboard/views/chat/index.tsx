@@ -21,7 +21,7 @@ export const ChatView = ({ viewModel }: Props) => {
               <MessageChatBalloon key={index}>
                 <UsernameContainer>{msg?.username}</UsernameContainer>
                 <MessageFromUserContainer>{msg?.message}</MessageFromUserContainer>
-                <DateContainer>{msg?.timestamp}</DateContainer>
+                <DateContainer>{new Date(msg?.date).toLocaleString()}</DateContainer>
               </MessageChatBalloon>
             )
           })

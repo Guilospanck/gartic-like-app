@@ -7,11 +7,18 @@ const INITIAL_STATE: MessageState = {
 
 export const messageReducer = (state = INITIAL_STATE, action: MessageActions) => {
   switch (action.type) {
-    case ActionTypes.DISPATCH_MESSAGE:    
+    case ActionTypes.DISPATCH_MESSAGE:
       return {
         ...state,
-        messages: [...state.messages, action.payload.message]
+        messages: [...state.messages, ...action.payload.message]
       }
+
+    case ActionTypes.DELETE_ALL_MESSAGES_BY_ROOM:
+      return {
+        ...state,
+        messages: state.messages.filter(element => element.room !== action.payload.room)
+      }
+
     default:
       return state
   }

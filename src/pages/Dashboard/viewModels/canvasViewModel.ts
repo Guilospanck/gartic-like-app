@@ -86,7 +86,7 @@ export const useCanvasViewModel = () => {
       username: usernameRef.current,
       room: roomRef.current,
       message: 'sending canvas coordinates...',
-      timestamp: new Date().toLocaleString('pt-br'),
+      date: new Date().toLocaleString('pt-br'),
       close: false,
       canvasCoordinates: JSON.stringify(coordinatesRef.current)
     }
