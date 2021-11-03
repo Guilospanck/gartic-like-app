@@ -36,22 +36,24 @@ export const useCanvasViewModel = () => {
 
   useEffect(() => {
 
-    coordinatesState.forEach((coordinates, index) => {
-      switch (index) {
-        case 0:
-          contextRef.current.beginPath()
-          contextRef.current.moveTo(coordinates[0], coordinates[1])
-          break
-
-        case coordinatesState.length - 1:
-          contextRef.current.closePath()
-          break
-
-        default:
-          contextRef.current.lineTo(coordinates[0], coordinates[1])
-          contextRef.current.stroke()
-          break
-      }
+    coordinatesState.forEach(coordinatesByMessage => {
+      coordinatesByMessage.forEach((coordinates, index) => {
+        switch (index) {
+          case 0:
+            contextRef.current.beginPath()
+            contextRef.current.moveTo(coordinates[0], coordinates[1])
+            break
+  
+          case coordinatesByMessage.length - 1:
+            contextRef.current.closePath()
+            break
+  
+          default:
+            contextRef.current.lineTo(coordinates[0], coordinates[1])
+            contextRef.current.stroke()
+            break
+        }
+      })
     })
 
   }, [coordinatesState])
@@ -85,7 +87,7 @@ export const useCanvasViewModel = () => {
     const msgToSend: JsonData = {
       username: usernameRef.current,
       room: roomRef.current,
-      message: 'sending canvas coordinates...',
+      message: null,
       date: new Date().toLocaleString('pt-br'),
       close: false,
       canvasCoordinates: JSON.stringify(coordinatesRef.current)

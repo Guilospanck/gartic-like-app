@@ -69,11 +69,14 @@ export const useChatViewModel = () => {
 
         const msg: JsonData[] = message
 
-        console.log(msg)
-
-        if (msg[0].canvasCoordinates && msg.length === 1) {
-          setCoordinatesState(JSON.parse(msg[0].canvasCoordinates))
-        }
+        let coordinatesArray = []
+        msg.forEach(item => {
+          if(item.canvasCoordinates){
+            const parsed = JSON.parse(item.canvasCoordinates)
+            coordinatesArray.push(parsed)
+          }
+        })
+        setCoordinatesState(coordinatesArray)
 
         dispatchActions(dispatchMessage({
           message: msg
@@ -123,7 +126,8 @@ export const useChatViewModel = () => {
       room: room,
       message,
       date: new Date().toLocaleString('pt-br'),
-      close: false
+      close: false,
+      canvasCoordinates: null
     }
 
     socket.send(JSON.stringify(msgToSend))

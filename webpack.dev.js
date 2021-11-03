@@ -12,7 +12,7 @@ module.exports = merge(common, {
     writeToDisk: true,
     historyApiFallback: true,
     watchContentBase: true,
-    port: 3000
+    port: 3333
   },
   plugins: [
     new Dotenv({
