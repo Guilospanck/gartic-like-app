@@ -35,7 +35,6 @@ export const useCanvasViewModel = () => {
   }, [])
 
   useEffect(() => {
-
     coordinatesState.forEach(coordinatesByMessage => {
       coordinatesByMessage.forEach((coordinates, index) => {
         switch (index) {
@@ -55,7 +54,6 @@ export const useCanvasViewModel = () => {
         }
       })
     })
-
   }, [coordinatesState])
 
   const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {

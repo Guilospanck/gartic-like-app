@@ -1,6 +1,6 @@
 import React from 'react'
 import { IUseCanvasViewModel } from '../../viewModels/canvasViewModel'
-import { CanvasStyled, Container } from './styles'
+import { CanvasStyled, Container, ClearButton } from './styles'
 
 type CanvasViewModelProps = {
   viewModel: IUseCanvasViewModel
@@ -13,8 +13,9 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
         onMouseDown={viewModel.startDrawing}
         onMouseUp={viewModel.finishDrawing}
         onMouseMove={viewModel.draw}
-        ref={viewModel.canvasRef}
+        ref={viewModel.canvasRef}        
       />
+      <ClearButton>Clear</ClearButton>
     </Container>
   )
 }
