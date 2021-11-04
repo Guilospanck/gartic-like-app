@@ -24,6 +24,7 @@ export const ClearButton = styled.button`
   text-transform: uppercase;
   color: white;
   right: 10px;
+  cursor: pointer;
 `
 
 export const CanvasStyled = styled.canvas`  

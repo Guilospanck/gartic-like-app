@@ -15,7 +15,7 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
         onMouseMove={viewModel.draw}
         ref={viewModel.canvasRef}        
       />
-      <ClearButton>Clear</ClearButton>
+      <ClearButton onClick={viewModel.onClearButtonClick}>Clear</ClearButton>
     </Container>
   )
 }

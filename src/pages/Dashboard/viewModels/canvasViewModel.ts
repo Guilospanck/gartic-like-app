@@ -9,6 +9,7 @@ export interface IUseCanvasViewModel {
   finishDrawing: () => void,
   draw: ({ nativeEvent }: { nativeEvent: MouseEvent }) => void,
   canvasRef: React.MutableRefObject<any>
+  onClearButtonClick: () => void,
 }
 
 export const useCanvasViewModel = () => {
@@ -18,9 +19,7 @@ export const useCanvasViewModel = () => {
 
   const { socketRef, usernameRef, roomRef, coordinatesRef, coordinatesState } = useContext(DashboardContext)
 
-  const messages = useSelector((store: RootState) => store.messageReducer.messages)
-
-  useEffect(() => {
+  const _initialCanvasSetup = () => {
     const canvas = canvasRef.current
     canvas.style.width = `100%`
     canvas.style.height = `100%`
@@ -32,6 +31,10 @@ export const useCanvasViewModel = () => {
     context.strokeStyle = "blue"
     context.lineWidth = 5
     contextRef.current = context
+  }
+
+  useEffect(() => {
+    _initialCanvasSetup()
   }, [])
 
   useEffect(() => {
@@ -113,10 +116,31 @@ export const useCanvasViewModel = () => {
     coordinatesRef.current.push([offsetX, offsetY])
   }
 
+  const onClearButtonClick = () => {
+    const canvas = canvasRef.current
+    canvas.style.width = `100%`
+    canvas.style.height = `100%`
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+
+    const context = canvas.getContext("2d")
+    context.lineCap = "round"
+    context.strokeStyle = "white"
+    context.lineWidth = 5000
+    
+    context.beginPath()
+    context.lineTo(canvas.width, canvas.height)
+    context.stroke()
+
+    // sets up canvas to initial pattern
+    _initialCanvasSetup()
+  }
+
   return {
     startDrawing,
     finishDrawing,
     draw,
-    canvasRef
+    canvasRef,
+    onClearButtonClick
   }
 }
