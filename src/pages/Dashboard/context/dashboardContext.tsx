@@ -1,12 +1,13 @@
 import React, { createContext, useRef, useState } from "react"
+import { CanvasConfigsAndCoordinatesPayload } from "~/shared/JsonDataWebsocketMessage"
 
 interface IDashboardContext {
   socketRef: React.MutableRefObject<WebSocket | null>,
   usernameRef: React.MutableRefObject<string | null>,
   roomRef: React.MutableRefObject<string | null>,
   coordinatesRef: React.MutableRefObject<Number[][] | null>,
-  coordinatesState: Number[][],
-  setCoordinatesState: (coordinates: Number[][]) => void
+  canvasConfigsAndCoordinatesState: CanvasConfigsAndCoordinatesPayload[],
+  setCanvasConfigsAndCoordinatesState: (canvasConfigsAndCoordinates: CanvasConfigsAndCoordinatesPayload[]) => void
 }
 
 export const DashboardContext = createContext<IDashboardContext | null>(null)
@@ -17,7 +18,7 @@ export const DashboardContextProvider = ({ children }) => {
   const roomRef = useRef<string | null>(null)
   const coordinatesRef = useRef<Number[][] | null>([])
 
-  const [coordinatesState, setCoordinatesState] = useState<Number[][] | null>([])
+  const [canvasConfigsAndCoordinatesState, setCanvasConfigsAndCoordinatesState] = useState<CanvasConfigsAndCoordinatesPayload[] | null>([])
 
 
   const defaultContext: IDashboardContext = {
@@ -25,8 +26,8 @@ export const DashboardContextProvider = ({ children }) => {
     usernameRef,
     roomRef,
     coordinatesRef,
-    coordinatesState,
-    setCoordinatesState
+    canvasConfigsAndCoordinatesState,
+    setCanvasConfigsAndCoordinatesState
   }
 
   return <DashboardContext.Provider value={defaultContext}> {children} </DashboardContext.Provider>

@@ -5,4 +5,16 @@ export type JsonData = {
   date: string
   close: boolean,
   canvasCoordinates?: string
+  canvasConfigs?: string // CanvasConfig
+}
+
+export type CanvasConfigType = {
+  lineCap: string,
+  strokeStyle: string,
+  lineWidth: number
+}
+
+export type CanvasConfigsAndCoordinatesPayload = {
+  configs: CanvasConfigType,
+  coordinates: Number[][]
 }

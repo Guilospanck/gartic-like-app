@@ -6,7 +6,7 @@ import { dispatchMessage, deleteMessagesByRoom } from '~/store/modules/messages/
 import { useLocation } from "react-router-dom"
 
 import { DashboardContext } from "../context/dashboardContext"
-import { JsonData } from "~/shared/JsonDataWebsocketMessage"
+import { CanvasConfigsAndCoordinatesPayload, CanvasConfigType, JsonData } from "~/shared/JsonDataWebsocketMessage"
 
 export interface IUseChatViewModel {
   sendMessage: () => void,
@@ -25,7 +25,7 @@ export const useChatViewModel = () => {
   }
   const query = useQuery()
 
-  const { socketRef, usernameRef, roomRef, coordinatesRef, setCoordinatesState } = useContext(DashboardContext)
+  const { socketRef, usernameRef, roomRef, coordinatesRef, setCanvasConfigsAndCoordinatesState } = useContext(DashboardContext)
 
   const [username] = useState(query.get('username'))
   const [room] = useState(query.get('room'))
@@ -66,17 +66,10 @@ export const useChatViewModel = () => {
         if (!data.length) {
           message = [data]
         }
-
+        
         const msg: JsonData[] = message
 
-        let coordinatesArray = []
-        msg.forEach(item => {
-          if(item.canvasCoordinates){
-            const parsed = JSON.parse(item.canvasCoordinates)
-            coordinatesArray.push(parsed)
-          }
-        })
-        setCoordinatesState(coordinatesArray)
+        _verifyAndSetCanvasConfigsAndCoordinates(msg)
 
         dispatchActions(dispatchMessage({
           message: msg
@@ -98,7 +91,7 @@ export const useChatViewModel = () => {
         date: new Date().toLocaleString('pt-br'),
         close: true
       }
-      
+
       socket.send(JSON.stringify(msgToSend))
       socketRef.current = null
       usernameRef.current = null
@@ -127,11 +120,27 @@ export const useChatViewModel = () => {
       message,
       date: new Date().toLocaleString('pt-br'),
       close: false,
-      canvasCoordinates: null
+      canvasCoordinates: null,
+      canvasConfigs: null
     }
 
     socket.send(JSON.stringify(msgToSend))
     setMessage("")
+  }
+
+  const _verifyAndSetCanvasConfigsAndCoordinates = (msg: JsonData[]) => {    
+    let canvasConfigsAndCoordinatesArray: CanvasConfigsAndCoordinatesPayload[] = []
+    msg.forEach(item => {
+      if (item.canvasConfigs) {
+        const parsedCoordinates: Number[][] = JSON.parse(item?.canvasCoordinates)
+        const parsedConfigs: CanvasConfigType = JSON.parse(item?.canvasConfigs)
+        canvasConfigsAndCoordinatesArray.push({
+          configs: parsedConfigs,
+          coordinates: parsedCoordinates
+        })
+      }
+    })
+    setCanvasConfigsAndCoordinatesState(canvasConfigsAndCoordinatesArray)
   }
 
   return {
