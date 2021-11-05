@@ -14,7 +14,8 @@ export interface IUseChatViewModel {
   handleMessage: (message: string) => void,
   handleTextAreaKeyDown: (e: React.KeyboardEvent) => void,
   messages: JsonData[],
-  room: string
+  room: string,
+  participantsInTheRoom: string[]
 }
 
 let socket = null
@@ -25,7 +26,8 @@ export const useChatViewModel = () => {
   }
   const query = useQuery()
 
-  const { socketRef, usernameRef, roomRef, coordinatesRef, setCanvasConfigsAndCoordinatesState } = useContext(DashboardContext)
+  const { socketRef, usernameRef, roomRef,
+    coordinatesRef, setCanvasConfigsAndCoordinatesState, participantsInTheRoom, setParticipantsInTheRoom } = useContext(DashboardContext)
 
   const [username] = useState(query.get('username'))
   const [room] = useState(query.get('room'))
@@ -45,6 +47,10 @@ export const useChatViewModel = () => {
     document.getElementById("messages-container").scrollTop = document.getElementById("messages-container").scrollHeight
   }, [messages])
 
+  useEffect(() => {
+    document.getElementById("participants-container").scrollTop = document.getElementById("participants-container").scrollHeight
+  }, [participantsInTheRoom])
+
   const memoizedSocket = useCallback(() => {
     if (!socket) return
 
@@ -62,11 +68,17 @@ export const useChatViewModel = () => {
       if (event?.data) {
         const data = JSON.parse(event.data)
 
+        // broadcast when a new user enters the room
+        if (data.participants) {
+          setParticipantsInTheRoom(data.participants)
+          return
+        }
+
         let message = data
         if (!data.length) {
           message = [data]
         }
-        
+
         const msg: JsonData[] = message
 
         _verifyAndSetCanvasConfigsAndCoordinates(msg)
@@ -128,7 +140,7 @@ export const useChatViewModel = () => {
     setMessage("")
   }
 
-  const _verifyAndSetCanvasConfigsAndCoordinates = (msg: JsonData[]) => {    
+  const _verifyAndSetCanvasConfigsAndCoordinates = (msg: JsonData[]) => {
     let canvasConfigsAndCoordinatesArray: CanvasConfigsAndCoordinatesPayload[] = []
     msg.forEach(item => {
       if (item.canvasConfigs) {
@@ -149,6 +161,7 @@ export const useChatViewModel = () => {
     handleMessage,
     handleTextAreaKeyDown,
     messages,
-    room
+    room,
+    participantsInTheRoom
   }
 }

@@ -13,9 +13,12 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
         onMouseDown={viewModel.startDrawing}
         onMouseUp={viewModel.finishDrawing}
         onMouseMove={viewModel.draw}
-        ref={viewModel.canvasRef}        
+        ref={viewModel.canvasRef}
       />
-      <ClearButton onClick={viewModel.onClearButtonClick}>Clear</ClearButton>
+      {
+        viewModel.disableCanvas ? null :
+          <ClearButton onClick={viewModel.onClearButtonClick}>Clear</ClearButton>
+      }
     </Container>
   )
 }

@@ -8,6 +8,7 @@ export interface IUseCanvasViewModel {
   draw: ({ nativeEvent }: { nativeEvent: MouseEvent }) => void,
   canvasRef: React.MutableRefObject<any>
   onClearButtonClick: () => void,
+  disableCanvas: boolean
 }
 
 export const useCanvasViewModel = () => {
@@ -20,7 +21,10 @@ export const useCanvasViewModel = () => {
 
   const [contextState, setContextState] = useState(null)
 
-  const { socketRef, usernameRef, roomRef, coordinatesRef, canvasConfigsAndCoordinatesState } = useContext(DashboardContext)
+  const [disableCanvas, setDisableCanvas] = useState(false) // pass to true
+
+  const { socketRef, usernameRef, roomRef,
+    coordinatesRef, canvasConfigsAndCoordinatesState } = useContext(DashboardContext)
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
@@ -51,8 +55,6 @@ export const useCanvasViewModel = () => {
 
   useEffect(() => {
     canvasConfigsAndCoordinatesState.forEach(canvasConfigsAndCoordinatesByMessage => {
-
-      console.log(canvasConfigsAndCoordinatesByMessage)
 
       const configs = canvasConfigsAndCoordinatesByMessage.configs
       const allCoordinates = canvasConfigsAndCoordinatesByMessage.coordinates
@@ -91,6 +93,8 @@ export const useCanvasViewModel = () => {
   }, [canvasConfigsAndCoordinatesState])
 
   const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
+    if (disableCanvas) return
+
     let offsetX, offsetY
     if (nativeEvent instanceof MouseEvent) {
       offsetX = nativeEvent.offsetX
@@ -109,6 +113,8 @@ export const useCanvasViewModel = () => {
   }
 
   const finishDrawing = () => {
+    if (disableCanvas) return
+
     contextRef.current.closePath()
     setIsDrawing(false)
 
@@ -174,6 +180,7 @@ export const useCanvasViewModel = () => {
     finishDrawing,
     draw,
     canvasRef,
-    onClearButtonClick
+    onClearButtonClick,
+    disableCanvas
   }
 }

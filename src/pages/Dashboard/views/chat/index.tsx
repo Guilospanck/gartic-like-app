@@ -2,21 +2,27 @@ import React from "react"
 import { IUseChatViewModel } from "../../viewModels/chatViewModel"
 import {
   ChatContainer, MessagesContainer, TextContainer, TextAreaStyled, SendButton,
-  MessageChatBalloon, UsernameContainer, MessageFromUserContainer, DateContainer
+  MessageChatBalloon, UsernameContainer, MessageFromUserContainer, DateContainer,
+  ParticipantsContainer, IndividualParticipantContainer
 } from "./styles"
 
 interface Props {
   viewModel: IUseChatViewModel
 }
 
-export const ChatView = ({ viewModel }: Props) => {  
+export const ChatView = ({ viewModel }: Props) => {
 
   return (
     <ChatContainer>
+      <ParticipantsContainer id="participants-container">
+        {viewModel.participantsInTheRoom.map((participant, index) => {
+         return <IndividualParticipantContainer index={index}>{participant}</IndividualParticipantContainer> 
+        })}
+      </ParticipantsContainer>
       <MessagesContainer id="messages-container">
         {
           viewModel.messages?.map((msg, index) => {
-            if(msg.room !== viewModel.room || msg.canvasCoordinates) return null
+            if (msg.room !== viewModel.room || msg.canvasCoordinates) return null
             return (
               <MessageChatBalloon key={index}>
                 <UsernameContainer>{msg?.username}</UsernameContainer>

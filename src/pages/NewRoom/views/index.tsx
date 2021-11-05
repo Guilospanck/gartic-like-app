@@ -20,6 +20,7 @@ export const NewRoomView = ({ viewModel }: Props) => {
           placeholder="Insert room's name"
           value={viewModel.roomName}
           onChange={(e) => viewModel.setRoomName(e.target.value)}
+          autoFocus={true}
         />
         <EnterButton onClick={viewModel.onEnterClick}>ENTER</EnterButton>
       </InputAndButtonContainer>

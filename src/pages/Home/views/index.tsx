@@ -20,6 +20,7 @@ export const HomeView = ({ viewModel }: Props) => {
           placeholder='Insert your username'
           value={viewModel.username}
           onChange={(e) => viewModel.setUsername(e.target.value)}
+          autoFocus={true}
         />
         <EnterButton onClick={viewModel.onEnterClick}>ENTER</EnterButton>
       </InputAndButtonContainer>

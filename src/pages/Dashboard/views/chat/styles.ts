@@ -12,10 +12,38 @@ export const ChatContainer = styled.div`
   flex-direction: column;
   gap: 1%;
 
+  position: relative;
+
   @media(min-width: 800px) {
     height: 100%;
     width: 50%;
   }
+`
+
+export const ParticipantsContainer = styled.div`
+  // position: absolute;
+  // top: 0px;
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  box-shadow: 3px 4px 8px 0px #979797;
+`
+
+interface ParticipantIndex {
+  index: number
+}
+
+export const IndividualParticipantContainer = styled.div<ParticipantIndex>`
+  padding: 5px;    
+  width: 100%;
+  margin-bottom: 1px;
+  background: ${props => props.index % 2 === 0 ? "#d9cdee" : "#fff"};
 `
 
 export const MessagesContainer = styled.div`
