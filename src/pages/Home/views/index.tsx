@@ -21,6 +21,7 @@ export const HomeView = ({ viewModel }: Props) => {
           value={viewModel.username}
           onChange={(e) => viewModel.setUsername(e.target.value)}
           autoFocus={true}
+          onKeyDown={viewModel.handleTextAreaKeyDown}
         />
         <EnterButton onClick={viewModel.onEnterClick}>ENTER</EnterButton>
       </InputAndButtonContainer>

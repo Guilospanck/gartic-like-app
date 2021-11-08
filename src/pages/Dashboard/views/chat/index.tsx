@@ -16,7 +16,7 @@ export const ChatView = ({ viewModel }: Props) => {
     <ChatContainer>
       <ParticipantsContainer id="participants-container">
         {viewModel.participantsInTheRoom.map((participant, index) => {
-         return <IndividualParticipantContainer index={index}>{participant}</IndividualParticipantContainer> 
+         return <IndividualParticipantContainer key={index} index={index}>{participant}</IndividualParticipantContainer> 
         })}
       </ParticipantsContainer>
       <MessagesContainer id="messages-container">

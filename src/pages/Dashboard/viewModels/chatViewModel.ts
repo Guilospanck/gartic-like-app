@@ -148,7 +148,8 @@ export const useChatViewModel = () => {
         const parsedConfigs: CanvasConfigType = JSON.parse(item?.canvasConfigs)
         canvasConfigsAndCoordinatesArray.push({
           configs: parsedConfigs,
-          coordinates: parsedCoordinates
+          coordinates: parsedCoordinates,
+          username: item.username
         })
       }
     })

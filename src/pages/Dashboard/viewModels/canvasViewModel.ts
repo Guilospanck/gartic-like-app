@@ -37,7 +37,7 @@ export const useCanvasViewModel = () => {
     setContextState(context)
   }
 
-  const setContextConfiguration = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {
+  const setContextConfiguration = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {    
     contextState.lineCap = lineCapParam ?? lineCap
     contextState.strokeStyle = strokeStyleParam ?? strokeStyle
     contextState.lineWidth = lineWidthParam ?? lineWidth
@@ -58,6 +58,9 @@ export const useCanvasViewModel = () => {
 
       const configs = canvasConfigsAndCoordinatesByMessage.configs
       const allCoordinates = canvasConfigsAndCoordinatesByMessage.coordinates
+      const username = canvasConfigsAndCoordinatesByMessage.username
+
+      if(username === usernameRef.current) return
 
       const { lineCap, strokeStyle, lineWidth } = configs
       setContextConfiguration(lineCap, strokeStyle, lineWidth)

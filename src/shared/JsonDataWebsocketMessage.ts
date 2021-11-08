@@ -16,5 +16,6 @@ export type CanvasConfigType = {
 
 export type CanvasConfigsAndCoordinatesPayload = {
   configs: CanvasConfigType,
-  coordinates: Number[][]
+  coordinates: Number[][],
+  username: string
 }

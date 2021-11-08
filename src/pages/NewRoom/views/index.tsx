@@ -21,6 +21,7 @@ export const NewRoomView = ({ viewModel }: Props) => {
           value={viewModel.roomName}
           onChange={(e) => viewModel.setRoomName(e.target.value)}
           autoFocus={true}
+          onKeyDown={viewModel.handleTextAreaKeyDown}
         />
         <EnterButton onClick={viewModel.onEnterClick}>ENTER</EnterButton>
       </InputAndButtonContainer>

@@ -31,14 +31,14 @@ export const Navbar = () => {
           <NavLink to='/dashboard' activeStyle={{}}>
             Dashboard
           </NavLink>
-          <NavLink to='/sign-up' activeStyle={{}}>
+          {/* <NavLink to='/sign-up' activeStyle={{}}>
             Sign Up
-          </NavLink>
+          </NavLink> */}
         </NavMenu>
         <NavRight>
-          <NavBtn>
+          {/* <NavBtn>
             <NavBtnLink to='/signin'>Sign In</NavBtnLink>
-          </NavBtn>
+          </NavBtn> */}
         </NavRight>
       </Nav>
     </>

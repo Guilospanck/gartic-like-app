@@ -6,6 +6,7 @@ export interface IUseNewRoomViewModel {
   roomName: string,
   setRoomName: (roomName: string) => void,
   onEnterClick: (e: React.MouseEvent<HTMLButtonElement>) => void,
+  handleTextAreaKeyDown: (e: React.KeyboardEvent) => void,  
 }
 
 export const useNewRoomViewModel = () => {
@@ -21,18 +22,31 @@ export const useNewRoomViewModel = () => {
   const [roomName, setRoomName] = useState("")
 
   const onEnterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    _verifyIfNameIsFilledAndGoToDashboard()
+  }
+
+  const handleTextAreaKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.stopPropagation()
+      _verifyIfNameIsFilledAndGoToDashboard()
+    }
+  }
+
+  const _verifyIfNameIsFilledAndGoToDashboard = () => {
     if (roomName.length === 0) return
 
-    e.stopPropagation()
     history.push({
       pathname: "/dashboard",
       search: `?username=${username}&room=${roomName}`
     })
   }
 
+
   return {
     roomName,
     setRoomName,
-    onEnterClick
+    onEnterClick,
+    handleTextAreaKeyDown
   }
 }
