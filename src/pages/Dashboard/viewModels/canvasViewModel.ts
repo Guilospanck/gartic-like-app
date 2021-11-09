@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
+import { useHistory } from "react-router-dom"
 import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 import { DashboardContext } from "../context/dashboardContext"
 
@@ -9,9 +10,13 @@ export interface IUseCanvasViewModel {
   canvasRef: React.MutableRefObject<any>
   onClearButtonClick: () => void,
   disableCanvas: boolean
+  onExitButtonClick: () => void,
 }
 
 export const useCanvasViewModel = () => {
+
+  const history = useHistory()
+
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
@@ -178,12 +183,21 @@ export const useCanvasViewModel = () => {
     setContextConfiguration()
   }
 
+  const onExitButtonClick = () => {
+    history.push({
+      pathname: "/",
+    })
+  }
+
+  
+
   return {
     startDrawing,
     finishDrawing,
     draw,
     canvasRef,
     onClearButtonClick,
-    disableCanvas
+    disableCanvas,
+    onExitButtonClick
   }
 }

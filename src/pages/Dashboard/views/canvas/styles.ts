@@ -16,7 +16,7 @@ export const Container = styled.div`
 export const ClearButton = styled.button`
   border: none;
   outline: none;
-  background: red;
+  background: blue;
   border-radius: 5px;
   padding: 5px;
   position: absolute;
@@ -24,6 +24,20 @@ export const ClearButton = styled.button`
   text-transform: uppercase;
   color: white;
   right: 10px;
+  cursor: pointer;
+`
+
+export const ExitButton = styled.button`
+  border: none;
+  outline: none;
+  background: red;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  text-transform: uppercase;
+  color: white;
+  left: 10px;
   cursor: pointer;
 `
 

@@ -133,7 +133,7 @@ export const useChatViewModel = () => {
       date: new Date().toLocaleString('pt-br'),
       close: false,
       canvasCoordinates: null,
-      canvasConfigs: null
+      canvasConfigs: null,
     }
 
     socket.send(JSON.stringify(msgToSend))
@@ -154,7 +154,7 @@ export const useChatViewModel = () => {
       }
     })
     setCanvasConfigsAndCoordinatesState(canvasConfigsAndCoordinatesArray)
-  }
+  }  
 
   return {
     sendMessage,
