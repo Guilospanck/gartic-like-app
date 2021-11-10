@@ -187,9 +187,7 @@ export const useCanvasViewModel = () => {
     history.push({
       pathname: "/",
     })
-  }
-
-  
+  }  
 
   return {
     startDrawing,
