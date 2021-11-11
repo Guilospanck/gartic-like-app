@@ -9,7 +9,9 @@ interface IDashboardContext {
   canvasConfigsAndCoordinatesState: CanvasConfigsAndCoordinatesPayload[],
   setCanvasConfigsAndCoordinatesState: (canvasConfigsAndCoordinates: CanvasConfigsAndCoordinatesPayload[]) => void,
   participantsInTheRoom: string[],
-  setParticipantsInTheRoom: (participants: string[]) => void
+  setParticipantsInTheRoom: (participants: string[]) => void,
+  drawersTurn: string,
+  setDrawersTurn: (drawer: string) => void
 }
 
 export const DashboardContext = createContext<IDashboardContext | null>(null)
@@ -24,6 +26,8 @@ export const DashboardContextProvider = ({ children }) => {
 
   const [participantsInTheRoom, setParticipantsInTheRoom] = useState([])
 
+  const [drawersTurn, setDrawersTurn] = useState("")
+
   const defaultContext: IDashboardContext = {
     socketRef,
     usernameRef,
@@ -32,7 +36,9 @@ export const DashboardContextProvider = ({ children }) => {
     canvasConfigsAndCoordinatesState,
     setCanvasConfigsAndCoordinatesState,
     participantsInTheRoom,
-    setParticipantsInTheRoom
+    setParticipantsInTheRoom,
+    drawersTurn,
+    setDrawersTurn
   }
 
   return <DashboardContext.Provider value={defaultContext}> {children} </DashboardContext.Provider>

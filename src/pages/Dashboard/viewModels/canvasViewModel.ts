@@ -29,7 +29,12 @@ export const useCanvasViewModel = () => {
   const [disableCanvas, setDisableCanvas] = useState(false) // pass to true
 
   const { socketRef, usernameRef, roomRef,
-    coordinatesRef, canvasConfigsAndCoordinatesState } = useContext(DashboardContext)
+    coordinatesRef, canvasConfigsAndCoordinatesState,
+    drawersTurn } = useContext(DashboardContext)
+
+  useEffect(() => {
+    setDisableCanvas(!(drawersTurn === usernameRef.current))
+  }, [drawersTurn])
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
@@ -42,12 +47,12 @@ export const useCanvasViewModel = () => {
     setContextState(context)
   }
 
-  const setContextConfiguration = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {    
+  const setContextConfiguration = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {
     contextState.lineCap = lineCapParam ?? lineCap
     contextState.strokeStyle = strokeStyleParam ?? strokeStyle
     contextState.lineWidth = lineWidthParam ?? lineWidth
     contextRef.current = contextState
-  }
+  }  
 
   useEffect(() => {
     initialCanvasSetup()
@@ -65,7 +70,7 @@ export const useCanvasViewModel = () => {
       const allCoordinates = canvasConfigsAndCoordinatesByMessage.coordinates
       const username = canvasConfigsAndCoordinatesByMessage.username
 
-      if(username === usernameRef.current) return
+      if (username === usernameRef.current) return
 
       const { lineCap, strokeStyle, lineWidth } = configs
       setContextConfiguration(lineCap, strokeStyle, lineWidth)
@@ -187,7 +192,7 @@ export const useCanvasViewModel = () => {
     history.push({
       pathname: "/",
     })
-  }  
+  }
 
   return {
     startDrawing,

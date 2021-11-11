@@ -27,7 +27,9 @@ export const useChatViewModel = () => {
   const query = useQuery()
 
   const { socketRef, usernameRef, roomRef,
-    coordinatesRef, setCanvasConfigsAndCoordinatesState, participantsInTheRoom, setParticipantsInTheRoom } = useContext(DashboardContext)
+    coordinatesRef, setCanvasConfigsAndCoordinatesState,
+    participantsInTheRoom, setParticipantsInTheRoom,
+    setDrawersTurn } = useContext(DashboardContext)
 
   const [username] = useState(query.get('username'))
   const [room] = useState(query.get('room'))
@@ -67,6 +69,12 @@ export const useChatViewModel = () => {
     socket.onmessage = (event) => {
       if (event?.data) {
         const data = JSON.parse(event.data)
+
+        // set participants turn
+        if(data.timestamp){
+          setDrawersTurn(data.username)
+          return
+        }
 
         // broadcast when a new user enters the room
         if (data.participants) {
@@ -154,7 +162,7 @@ export const useChatViewModel = () => {
       }
     })
     setCanvasConfigsAndCoordinatesState(canvasConfigsAndCoordinatesArray)
-  }  
+  }
 
   return {
     sendMessage,
