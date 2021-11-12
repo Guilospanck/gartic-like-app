@@ -8,6 +8,8 @@ export const Container = styled.div`
   height: 100%;
   flex-grow: 7;
 
+  position: relative;
+
   @media(min-width: 800px) {
   }
 `
