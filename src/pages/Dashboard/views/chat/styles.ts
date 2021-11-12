@@ -1,37 +1,38 @@
 import styled from "styled-components"
 
-export const ChatContainer = styled.div`
+export const ChatAndParticipantsContainer = styled.div`
   justify-content: center;
   align-items: center;
   justify-items: center;
   
   width: 100%;
+  height: 100%;
   flex-grow: 3;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1%;
-
-  position: relative;
 
   @media(min-width: 800px) {
     height: 100%;
     width: 50%;
+    flex-direction: column;
   }
 `
 
 export const ParticipantsContainer = styled.div`
-  // position: absolute;
-  // top: 0px;
-  width: 100%;
-  height: 300px;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+
   align-content: flex-start;
   justify-content: flex-start;
   align-items: flex-start;
+
+  width: 100%;
+  height: 300px;
+
+  overflow-y: auto;
   box-shadow: 3px 4px 8px 0px #979797;
 `
 
@@ -46,10 +47,22 @@ export const IndividualParticipantContainer = styled.div<ParticipantIndex>`
   background: ${props => props.index % 2 === 0 ? "#d9cdee" : "#fff"};
 `
 
+export const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 300px;
+  width: 100%;
+  
+  @media(min-width: 800px) {
+    max-height: 65%;    
+  }
+`
+
 export const MessagesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 40;
+  
   width: 100%;
   height: 100%;
 
@@ -57,6 +70,10 @@ export const MessagesContainer = styled.div`
   padding-bottom: 8px;
   border: none;
   box-shadow: -1px 2px 12px 0px #c7c6c5;  
+
+  @media(min-width: 800px) {
+    flex-grow: 4;
+  }
 `
 
 export const MessageChatBalloon = styled.div`
@@ -67,8 +84,11 @@ export const MessageChatBalloon = styled.div`
   background: #884eef;
   border: none;
   border-radius: 15px;
-  padding: 3%;
   margin: 3px 7px;
+
+  padding-left: 3%;
+  padding-right: 3%;
+  padding-top: 1%;
   
   box-shadow: 3px 3px 6px 0px #191919;
   color: white;

@@ -7,7 +7,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 7;
-  position: relative;
 
   @media(min-width: 800px) {
   }
