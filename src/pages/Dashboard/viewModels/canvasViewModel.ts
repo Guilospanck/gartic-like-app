@@ -30,11 +30,7 @@ export const useCanvasViewModel = () => {
 
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, canvasConfigsAndCoordinatesState,
-    drawersTurn } = useContext(DashboardContext)
-
-  useEffect(() => {
-    setDisableCanvas(!(drawersTurn === usernameRef.current))
-  }, [drawersTurn])
+    drawersTurn } = useContext(DashboardContext)  
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
@@ -105,6 +101,12 @@ export const useCanvasViewModel = () => {
     })
   }, [canvasConfigsAndCoordinatesState])
 
+  useEffect(() => {    
+    setDisableCanvas(!(drawersTurn === usernameRef.current))
+
+    return () => drawersTurn !== usernameRef.current && finishDrawing()
+  }, [drawersTurn])
+
   const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
     if (disableCanvas) return
 
@@ -126,8 +128,6 @@ export const useCanvasViewModel = () => {
   }
 
   const finishDrawing = () => {
-    if (disableCanvas) return
-
     contextRef.current.closePath()
     setIsDrawing(false)
 
@@ -149,7 +149,7 @@ export const useCanvasViewModel = () => {
   }
 
   const draw = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
-    if (!isDrawing) return
+    if (!isDrawing || disableCanvas) return
 
     let offsetX, offsetY
     if (nativeEvent instanceof MouseEvent) {
