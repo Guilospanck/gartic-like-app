@@ -9,12 +9,14 @@ type CanvasViewModelProps = {
 export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
   return (
     <Container>
-      <CanvasStyled
-        onMouseDown={viewModel.startDrawing}
-        onMouseUp={viewModel.finishDrawing}
-        onMouseMove={viewModel.draw}
-        ref={viewModel.canvasRef}
-      />
+      <div id="canvas-container">
+        <CanvasStyled
+          onMouseDown={viewModel.startDrawing}
+          onMouseUp={viewModel.finishDrawing}
+          onMouseMove={viewModel.draw}
+          ref={viewModel.canvasRef}
+        />
+      </div>
       {
         viewModel.disableCanvas ? null :
           <ClearButton onClick={viewModel.onClearButtonClick}>Clear</ClearButton>

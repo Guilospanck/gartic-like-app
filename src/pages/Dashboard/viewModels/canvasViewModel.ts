@@ -30,16 +30,20 @@ export const useCanvasViewModel = () => {
 
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, canvasConfigsAndCoordinatesState,
-    drawersTurn } = useContext(DashboardContext)  
+    drawersTurn } = useContext(DashboardContext)
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
     canvas.style.width = `100%`
     canvas.style.height = `100%`
-    canvas.width = canvas.offsetWidth
-    canvas.height = canvas.offsetHeight
+    canvas.width = 1280
+    canvas.height = 720
+    // canvas.width = canvas.offsetWidth
+    // canvas.height = canvas.offsetHeight
 
     const context = canvas.getContext("2d")
+    context.mozImageSmoothingEnabled = false
+    context.imageSmoothingEnabled = false
     setContextState(context)
   }
 
@@ -48,7 +52,7 @@ export const useCanvasViewModel = () => {
     contextState.strokeStyle = strokeStyleParam ?? strokeStyle
     contextState.lineWidth = lineWidthParam ?? lineWidth
     contextRef.current = contextState
-  }  
+  }
 
   useEffect(() => {
     initialCanvasSetup()
@@ -101,19 +105,26 @@ export const useCanvasViewModel = () => {
     })
   }, [canvasConfigsAndCoordinatesState])
 
-  useEffect(() => {    
+  useEffect(() => {
     setDisableCanvas(!(drawersTurn === usernameRef.current))
 
     return () => drawersTurn !== usernameRef.current && finishDrawing()
   }, [drawersTurn])
+
+  const getMousePosition = (e) => {
+    var mouseX = e.offsetX * canvasRef.current.width / canvasRef.current.clientWidth | 0;
+    var mouseY = e.offsetY * canvasRef.current.height / canvasRef.current.clientHeight | 0;
+    return { x: mouseX, y: mouseY };
+  }
 
   const startDrawing = ({ nativeEvent }: { nativeEvent: MouseEvent | TouchEvent }) => {
     if (disableCanvas) return
 
     let offsetX, offsetY
     if (nativeEvent instanceof MouseEvent) {
-      offsetX = nativeEvent.offsetX
-      offsetY = nativeEvent.offsetY
+      const { x, y } = getMousePosition(nativeEvent)
+      offsetX = x
+      offsetY = y
     } else {
       const r = canvasRef.current.getBoundingClientRect()
       offsetX = nativeEvent.touches[0].clientX - r.left
@@ -153,8 +164,9 @@ export const useCanvasViewModel = () => {
 
     let offsetX, offsetY
     if (nativeEvent instanceof MouseEvent) {
-      offsetX = nativeEvent.offsetX
-      offsetY = nativeEvent.offsetY
+      const { x, y } = getMousePosition(nativeEvent)
+      offsetX = x
+      offsetY = y
     } else {
       const r = canvasRef.current.getBoundingClientRect()
       offsetX = nativeEvent.touches[0].clientX - r.left
