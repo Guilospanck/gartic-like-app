@@ -11,6 +11,7 @@ export interface IUseCanvasViewModel {
   onClearButtonClick: () => void,
   disableCanvas: boolean
   onExitButtonClick: () => void,
+  drawersTurnProgressBarPercentage: number
 }
 
 export const useCanvasViewModel = () => {
@@ -30,7 +31,8 @@ export const useCanvasViewModel = () => {
 
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, canvasConfigsAndCoordinatesState,
-    drawersTurn } = useContext(DashboardContext)
+    drawersTurn,
+    drawersTurnProgressBarPercentage } = useContext(DashboardContext)
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
@@ -107,7 +109,6 @@ export const useCanvasViewModel = () => {
 
   useEffect(() => {
     setDisableCanvas(!(drawersTurn === usernameRef.current))
-
     return () => drawersTurn !== usernameRef.current && finishDrawing()
   }, [drawersTurn])
 
@@ -213,6 +214,7 @@ export const useCanvasViewModel = () => {
     canvasRef,
     onClearButtonClick,
     disableCanvas,
-    onExitButtonClick
+    onExitButtonClick,
+    drawersTurnProgressBarPercentage
   }
 }

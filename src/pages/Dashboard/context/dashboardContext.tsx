@@ -11,7 +11,9 @@ interface IDashboardContext {
   participantsInTheRoom: string[],
   setParticipantsInTheRoom: (participants: string[]) => void,
   drawersTurn: string,
-  setDrawersTurn: (drawer: string) => void
+  setDrawersTurn: (drawer: string) => void,
+  drawersTurnProgressBarPercentage: number,
+  updateProgressBar: () => void
 }
 
 export const DashboardContext = createContext<IDashboardContext | null>(null)
@@ -28,6 +30,25 @@ export const DashboardContextProvider = ({ children }) => {
 
   const [drawersTurn, setDrawersTurn] = useState("")
 
+  const [drawersTurnProgressBarPercentage, setDrawersTurnProgressBarPercentage] = useState(0)
+
+  const TIME_BETWEEN_USERS = 20 // seconds
+  const DECREMENTAL_PACE = 100 / TIME_BETWEEN_USERS
+  const updateProgressBar = () => {
+    setDrawersTurnProgressBarPercentage(100)
+    let id = 0
+    let progress = 100
+    const timer = setInterval(() => {
+      progress -= DECREMENTAL_PACE
+      setDrawersTurnProgressBarPercentage(progress)
+      id++
+      if (id === 20) {
+        setDrawersTurnProgressBarPercentage(100)
+        clearInterval(timer)
+      }
+    }, 1 * 1000)
+  }
+
   const defaultContext: IDashboardContext = {
     socketRef,
     usernameRef,
@@ -38,7 +59,9 @@ export const DashboardContextProvider = ({ children }) => {
     participantsInTheRoom,
     setParticipantsInTheRoom,
     drawersTurn,
-    setDrawersTurn
+    setDrawersTurn,
+    drawersTurnProgressBarPercentage,
+    updateProgressBar
   }
 
   return <DashboardContext.Provider value={defaultContext}> {children} </DashboardContext.Provider>

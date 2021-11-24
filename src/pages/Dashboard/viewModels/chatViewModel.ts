@@ -29,7 +29,8 @@ export const useChatViewModel = () => {
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, setCanvasConfigsAndCoordinatesState,
     participantsInTheRoom, setParticipantsInTheRoom,
-    setDrawersTurn } = useContext(DashboardContext)
+    setDrawersTurn,
+    drawersTurnProgressBarPercentage, updateProgressBar } = useContext(DashboardContext)
 
   const [username] = useState(query.get('username'))
   const [room] = useState(query.get('room'))
@@ -73,6 +74,7 @@ export const useChatViewModel = () => {
         // set participants turn
         if(data.timestamp){
           setDrawersTurn(data.username)
+          updateProgressBar()
           return
         }
 
@@ -163,6 +165,7 @@ export const useChatViewModel = () => {
     })
     setCanvasConfigsAndCoordinatesState(canvasConfigsAndCoordinatesArray)
   }
+ 
 
   return {
     sendMessage,
