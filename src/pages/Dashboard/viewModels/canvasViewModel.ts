@@ -11,7 +11,8 @@ export interface IUseCanvasViewModel {
   onClearButtonClick: () => void,
   disableCanvas: boolean
   onExitButtonClick: () => void,
-  drawersTurnProgressBarPercentage: number
+  drawersTurnProgressBarPercentage: number,
+  drawersTurn: string
 }
 
 export const useCanvasViewModel = () => {
@@ -215,6 +216,7 @@ export const useCanvasViewModel = () => {
     onClearButtonClick,
     disableCanvas,
     onExitButtonClick,
-    drawersTurnProgressBarPercentage
+    drawersTurnProgressBarPercentage,
+    drawersTurn
   }
 }
