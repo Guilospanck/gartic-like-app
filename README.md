@@ -1,11 +1,33 @@
 # Frontend
+This is the frontend part of the Gartic-Like Application.
+
+## Installation
+Git clone this repository
+```bash
+git clone https://github.com/Guilospanck/gartic-like-app.git
+```
+
+Git clone [Gartic-Go-Backend](https://github.com/Guilospanck/gartic-go-backend) repository
+```bash
+git clone https://github.com/Guilospanck/gartic-go-backend.git
+```
+
+Be sure to have <code>NodeJS</code> (at least version v14), <code>Yarn</code> and <code>Go</code> installed.
+
 ## Running
+
+Cd into gartic-like-app folder, then run
+```bash
+yarn
+```
+to install node_modules dependencies and finally
 ```bash
 yarn start:dev
 ```
-or
+to start the application.
 
 
+## Tip (for myself)
 After building the application by using `yarn build`, you can serve the production public folder by going into the folder directory and running
 `npx http-server .`
 
@@ -46,6 +68,6 @@ and add this to your `webpack.common.js`:
 
 ## TODO
 - [x] Add responsiveness.
-- [] Send messages.
-- [] Show them on the messages box.
-- [] ?Create a simple Go backend to handle requests.
+- [x] Send messages.
+- [x] Show them on the messages box.
+- [x] Create a simple Go backend to handle requests.
