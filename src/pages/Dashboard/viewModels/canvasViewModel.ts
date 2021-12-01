@@ -21,7 +21,8 @@ export interface IUseCanvasViewModel {
   COLORS_ARRAY: string[],
   onColorButtonClick: (color: string) => void,
   mousePosition: MousePositionInterface,
-  strokeStyle: string
+  strokeStyle: string,
+  usernameRef: React.MutableRefObject<string>
 }
 
 export const useCanvasViewModel = () => {
@@ -262,6 +263,7 @@ export const useCanvasViewModel = () => {
     COLORS_ARRAY,
     onColorButtonClick,
     mousePosition,
-    strokeStyle
+    strokeStyle,
+    usernameRef
   }
 }

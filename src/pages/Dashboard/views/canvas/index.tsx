@@ -44,8 +44,12 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
         <ButtonsContainer>
           <ExitButton onClick={viewModel.onExitButtonClick}>Exit</ExitButton>
           {
-            viewModel.drawersTurn ?
-              <PlayerTurnName>Player's Turn: <b>{viewModel.drawersTurn}</b></PlayerTurnName> :
+            viewModel.drawersTurn ? (
+              viewModel.drawersTurn === viewModel.usernameRef.current ?
+                <PlayerTurnName>Your Turn</PlayerTurnName>
+                :
+                <PlayerTurnName>Player's Turn: <b>{viewModel.drawersTurn}</b></PlayerTurnName>
+            ) :
               <span>Waiting for participants...</span>
           }
           {

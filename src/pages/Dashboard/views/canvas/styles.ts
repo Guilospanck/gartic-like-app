@@ -8,13 +8,15 @@ export const Container = styled.div`
   width: 100%;
   height: 100%;
   flex-grow: 7;
+
+  border-radius: 10px;
 `
 
 export const ButtonsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 5px;
+  margin-top: 5px;  
 `
 
 export const ClearButton = styled.button`
@@ -69,6 +71,7 @@ export const ColorsContainer = styled.div`
   margin-left: 1px;
   padding: 5px;
   box-shadow: -1px 2px 12px 0px #c7c6c5;
+  border-bottom-right-radius: 10px;
 `
 
 interface ColorIconButtonInterface {

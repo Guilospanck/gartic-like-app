@@ -34,6 +34,7 @@ export const ParticipantsContainer = styled.div`
 
   overflow-y: auto;
   box-shadow: 3px 4px 8px 0px #979797;
+  border-radius: 10px;
 `
 
 interface ParticipantIndex {
@@ -69,7 +70,10 @@ export const MessagesContainer = styled.div`
   overflow-y: auto;
   padding-bottom: 8px;
   border: none;
-  box-shadow: -1px 2px 12px 0px #c7c6c5;  
+  box-shadow: -1px 2px 12px 0px #c7c6c5;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 
   @media(min-width: 800px) {
     flex-grow: 4;
@@ -152,6 +156,8 @@ export const TextAreaStyled = styled.textarea`
   border: none;
   box-shadow: -1px 2px 12px 0px #c7c6c5;
 
+  border-bottom-left-radius: 10px;
+
   &:focus {
     outline: none;
     border-color: black;
@@ -166,5 +172,11 @@ export const SendButton = styled.button`
   background: #1dac1d;
   color: white;
   border-radius: 5px;
-  box-shadow: 3px 1px 12px 0px #1dac1d;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    box-shadow: 3px 1px 12px 0px #1dac1d;
+  }
+
+  cursor: pointer;
 `
