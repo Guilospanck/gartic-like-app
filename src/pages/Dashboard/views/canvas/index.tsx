@@ -32,11 +32,13 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
 
   return (
     <>
-      <MouseSquareFollower
-        left={`${viewModel.mousePosition.x}px`}
-        top={`${viewModel.mousePosition.y}px`}
-        bgColor={viewModel.strokeStyle}
-      />
+      {!viewModel.disableCanvas &&
+        <MouseSquareFollower
+          left={`${viewModel.mousePosition.x}px`}
+          top={`${viewModel.mousePosition.y}px`}
+          bgColor={viewModel.strokeStyle}
+        />
+      }
       <Container>
         <ProgressBar percentage={viewModel.drawersTurnProgressBarPercentage} />
         <ButtonsContainer>

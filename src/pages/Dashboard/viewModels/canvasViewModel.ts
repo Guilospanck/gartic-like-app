@@ -25,11 +25,11 @@ export interface IUseCanvasViewModel {
 }
 
 export const useCanvasViewModel = () => {
-
   const history = useHistory()
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
+  const lastColorChoiceRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
   const [lineCap, setLineCap] = useState("round")
   const [strokeStyle, setStrokeStyle] = useState("black")
@@ -70,7 +70,12 @@ export const useCanvasViewModel = () => {
     contextState.lineCap = lineCapParam ?? lineCap
     contextState.strokeStyle = strokeStyleParam ?? strokeStyle
     contextState.lineWidth = lineWidthParam ?? lineWidth
+
     contextRef.current = contextState
+
+    setLineCap(contextState.lineCap)
+    setStrokeStyle(contextState.strokeStyle)
+    setLineWidth(contextState.lineWidth)    
   }
 
   useEffect(() => {
@@ -100,7 +105,7 @@ export const useCanvasViewModel = () => {
       const configs = canvasConfigsAndCoordinatesByMessage.configs
       const allCoordinates = canvasConfigsAndCoordinatesByMessage.coordinates
       const username = canvasConfigsAndCoordinatesByMessage.username
-
+      
       if (username === usernameRef.current) return
 
       const { lineCap, strokeStyle, lineWidth } = configs
@@ -137,11 +142,11 @@ export const useCanvasViewModel = () => {
   }, [canvasConfigsAndCoordinatesState])
 
   useEffect(() => {
-    setDisableCanvas(!(drawersTurn === usernameRef.current))
+    setDisableCanvas(drawersTurn !== usernameRef.current)
     return () => drawersTurn !== usernameRef.current && finishDrawing()
   }, [drawersTurn])
 
-  const getMousePosition = (e) => {
+  const getMousePosition = (e: MouseEvent) => {
     var mouseX = e.offsetX * canvasRef.current.width / canvasRef.current.clientWidth | 0;
     var mouseY = e.offsetY * canvasRef.current.height / canvasRef.current.clientHeight | 0;
     return { x: mouseX, y: mouseY };
@@ -175,7 +180,9 @@ export const useCanvasViewModel = () => {
     sendCanvasCoordinatesToWebsocket()
   }
 
-  const sendCanvasCoordinatesToWebsocket = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {
+  const sendCanvasCoordinatesToWebsocket = (lineCapParam = null, strokeStyleParam = null, lineWidthParam = null) => {  
+    if(!strokeStyleParam) strokeStyleParam = lastColorChoiceRef.current
+
     const msgToSend: JsonData = {
       username: usernameRef.current,
       room: roomRef.current,
@@ -238,6 +245,7 @@ export const useCanvasViewModel = () => {
 
   const onColorButtonClick = (color: string) => {
     contextState.strokeStyle = color
+    lastColorChoiceRef.current = color
     setStrokeStyle(color)
   }
 
