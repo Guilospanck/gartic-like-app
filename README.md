@@ -71,3 +71,8 @@ and add this to your `webpack.common.js`:
 - [x] Send messages.
 - [x] Show them on the messages box.
 - [x] Create a simple Go backend to handle requests.
+- [ ] Add interaction when user exits room while drawing.
+- [ ] Add which desing will be drawn.
+- [ ] Add function to get chat messages adn verify if user got it right.
+- [ ] Add score function when user is right about a design being drawn.
+- [ ] Add tests.
