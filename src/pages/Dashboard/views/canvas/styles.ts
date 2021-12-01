@@ -48,6 +48,69 @@ export const ExitButton = styled.button`
   color: white;
 `
 
+export const CanvasAndColorsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+`
+
+export const ColorsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 35px;
+  height: 100%;
+
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  gap: 0.5%;
+
+  margin-left: 1px;
+  padding: 5px;
+  box-shadow: -1px 2px 12px 0px #c7c6c5;
+`
+
+interface ColorIconButtonInterface {
+  bgColor?: string
+}
+
+export const ColorIconButton = styled.button<ColorIconButtonInterface>`
+  border: none;
+  outline: none;
+  background: ${props => props.bgColor || 'red'};
+  border-radius: 3px;
+
+  padding: 0px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+`
+
+export const Divider = styled.div`
+  width: 20px;
+  height: 1px;
+  margin-top: 2px;
+  border-top: 1px solid gray;
+`
+
+interface MouseSquareFollowerInterface {
+  bgColor?: string
+  top: string
+  left: string
+}
+export const MouseSquareFollower = styled.div<MouseSquareFollowerInterface>`
+  position: fixed;
+  top: ${props => props.top || '50%'};
+  left: ${props => props.left || '50%'};
+  width: 8px;
+  height: 8px;
+  background-color: ${props => props.bgColor};
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  pointer-events: none;
+`
+
 export const CanvasContainer = styled.div`
   height: 100%;
 `

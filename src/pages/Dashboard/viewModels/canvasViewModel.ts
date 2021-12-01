@@ -3,6 +3,11 @@ import { useHistory } from "react-router-dom"
 import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 import { DashboardContext } from "../context/dashboardContext"
 
+interface MousePositionInterface {
+  x: number
+  y: number
+}
+
 export interface IUseCanvasViewModel {
   startDrawing: ({ nativeEvent }: { nativeEvent: MouseEvent }) => void,
   finishDrawing: () => void,
@@ -12,7 +17,11 @@ export interface IUseCanvasViewModel {
   disableCanvas: boolean
   onExitButtonClick: () => void,
   drawersTurnProgressBarPercentage: number,
-  drawersTurn: string
+  drawersTurn: string,
+  COLORS_ARRAY: string[],
+  onColorButtonClick: (color: string) => void,
+  mousePosition: MousePositionInterface,
+  strokeStyle: string
 }
 
 export const useCanvasViewModel = () => {
@@ -23,12 +32,19 @@ export const useCanvasViewModel = () => {
   const contextRef = useRef(null)
   const [isDrawing, setIsDrawing] = useState(false)
   const [lineCap, setLineCap] = useState("round")
-  const [strokeStyle, setStrokeStyle] = useState("blue")
+  const [strokeStyle, setStrokeStyle] = useState("black")
   const [lineWidth, setLineWidth] = useState(5)
+
+  const [mousePosition, setMousePosition] = useState({ x: null, y: null });
 
   const [contextState, setContextState] = useState(null)
 
   const [disableCanvas, setDisableCanvas] = useState(false) // pass to true
+
+  const COLORS_ARRAY = ["red", "blue", "green", "pink", "brown", "gray", "black", "violet", "orange", "yellow", "gold",
+    "salmon", "purple", "aquamarine", "chocolate", "cyan", "turquoise", "aqua", "beige", "chartreuse", "crimson",
+    "darkcyan", "darkolivegreen", "darkmagenta", "goldenrod", "indigo", "limegreen", "midnightblue", "mistyrose", "peru",
+    "silver"]
 
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, canvasConfigsAndCoordinatesState,
@@ -56,6 +72,18 @@ export const useCanvasViewModel = () => {
     contextState.lineWidth = lineWidthParam ?? lineWidth
     contextRef.current = contextState
   }
+
+  useEffect(() => {
+    const mouseMoveHandler = (event: MouseEvent) => {
+      const { clientX, clientY } = event
+      setMousePosition({ x: clientX, y: clientY })
+    }
+    document.addEventListener("mousemove", mouseMoveHandler)
+
+    return () => {
+      document.removeEventListener("mousemove", mouseMoveHandler)
+    }
+  }, [])
 
   useEffect(() => {
     initialCanvasSetup()
@@ -208,6 +236,11 @@ export const useCanvasViewModel = () => {
     })
   }
 
+  const onColorButtonClick = (color: string) => {
+    contextState.strokeStyle = color
+    setStrokeStyle(color)
+  }
+
   return {
     startDrawing,
     finishDrawing,
@@ -217,6 +250,10 @@ export const useCanvasViewModel = () => {
     disableCanvas,
     onExitButtonClick,
     drawersTurnProgressBarPercentage,
-    drawersTurn
+    drawersTurn,
+    COLORS_ARRAY,
+    onColorButtonClick,
+    mousePosition,
+    strokeStyle
   }
 }
