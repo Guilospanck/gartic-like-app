@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   entry: path.join(__dirname, 'src', 'index.tsx'),
   output: {
-    path: path.resolve(__dirname, 'public'),
+    path: path.resolve(__dirname, 'build'),
     // publicPath: path.resolve(__dirname, 'public'),
     // main bundle
     filename: '[name].bundle.js',
