@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router-dom"
 
 export interface IUseHomeViewModel {
   username: string,
@@ -10,13 +10,13 @@ export interface IUseHomeViewModel {
 
 export const useHomeViewModel = () => {
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const [username, setUsername] = useState('')
 
   const onEnterClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-    _verifyIfNameIsFilledAndGoToWaitingRoom()    
+    _verifyIfNameIsFilledAndGoToWaitingRoom()
   }
 
   const handleTextAreaKeyDown = (e: React.KeyboardEvent) => {
@@ -29,10 +29,7 @@ export const useHomeViewModel = () => {
   const _verifyIfNameIsFilledAndGoToWaitingRoom = () => {
     if (username.length === 0) return
 
-    history.push({
-      pathname: "/waitingroom",
-      search: `?username=${username}`
-    })
+    navigate(`/waitingroom?username=${username}`, { replace: true })
   }
 
   return {

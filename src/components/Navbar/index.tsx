@@ -25,10 +25,10 @@ export const Navbar = () => {
           <GarticLogoLink to='/'>
             <StyledGarticSVGIcon />
           </GarticLogoLink>
-          <NavLink to='/' exact={true} activeStyle={{}}>
+          <NavLink to='/'>
             Home
           </NavLink>
-          <NavLink to='/dashboard' activeStyle={{}}>
+          <NavLink to='/dashboard'>
             Dashboard
           </NavLink>
           {/* <NavLink to='/sign-up' activeStyle={{}}>

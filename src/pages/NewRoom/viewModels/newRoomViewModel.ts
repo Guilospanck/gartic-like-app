@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useHistory } from "react-router"
+import { useNavigate } from "react-router"
 import { useLocation } from "react-router-dom"
 
 export interface IUseNewRoomViewModel {
@@ -11,7 +11,7 @@ export interface IUseNewRoomViewModel {
 
 export const useNewRoomViewModel = () => {
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const useQuery = () => {
     return new URLSearchParams(useLocation().search)
@@ -36,10 +36,8 @@ export const useNewRoomViewModel = () => {
   const _verifyIfNameIsFilledAndGoToDashboard = () => {
     if (roomName.length === 0) return
 
-    history.push({
-      pathname: "/dashboard",
-      search: `?username=${username}&room=${roomName}`
-    })
+    navigate(`/dashboard?username=${username}&room=${roomName}`, { replace: true })
+
   }
 
 

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { useHistory, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 
@@ -23,7 +23,7 @@ let socket = null
 
 export const useWaitingRoomViewModel = () => {
 
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const useQuery = () => {
     return new URLSearchParams(useLocation().search)
@@ -76,19 +76,12 @@ export const useWaitingRoomViewModel = () => {
 
   const onEnterClick = (e: React.MouseEvent<HTMLButtonElement>, room: string) => {
     e.stopPropagation()
-    history.push({
-      pathname: "/dashboard",
-      search: `?username=${username}&room=${room}`
-    })
+    navigate(`/dashboard?username=${username}&room=${room}`, { replace: true })
   }
 
   const onNewRoomClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation()
-
-    history.push({
-      pathname: "/newroom",
-      search: `?username=${username}`
-    })
+    navigate(`/newroom?username=${username}`, { replace: true })
   }
 
   const _fillParticipantsAndRoomsArrayWithMsgReceived = (msg: WaitingRoomData[]) => {

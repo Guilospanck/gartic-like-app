@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import { useHistory } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { JsonData } from "~/shared/JsonDataWebsocketMessage"
 import { DashboardContext } from "../context/dashboardContext"
 
@@ -26,7 +26,7 @@ export interface IUseCanvasViewModel {
 }
 
 export const useCanvasViewModel = () => {
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -239,9 +239,7 @@ export const useCanvasViewModel = () => {
   }
 
   const onExitButtonClick = () => {
-    history.push({
-      pathname: "/",
-    })
+    navigate(`/`, { replace: true })
   }
 
   const onColorButtonClick = (color: string) => {

@@ -11,9 +11,8 @@ module.exports = merge(common, {
     react: 'React',
     axios: 'axios',
     'react-dom': 'ReactDOM',
-    'react-router-dom': 'ReactRouterDOM'
+    'react-router-dom': 'ReactRouterDOM',
   },
-
   optimization: {
     // vendor bundle
     splitChunks: {

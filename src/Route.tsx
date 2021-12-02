@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { Navbar } from './components/Navbar'
 
@@ -12,12 +12,12 @@ export const AppRoute = () => {
   return (
     <BrowserRouter>
       <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/waitingroom" component={WaitingRoom} />
-        <Route path="/newroom" component={NewRoom} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/waitingroom" element={<WaitingRoom />} />
+        <Route path="/newroom" element={<NewRoom />} />
+      </Routes>
     </BrowserRouter>
   )
 }
