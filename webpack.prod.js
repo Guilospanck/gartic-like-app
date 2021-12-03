@@ -8,10 +8,9 @@ const { merge } = require('webpack-merge')
 module.exports = merge(common, {
   mode: 'production',
   externals: {
-    react: 'React',
-    axios: 'axios',
+    'react': 'React',
+    'axios': 'axios',
     'react-dom': 'ReactDOM',
-    'react-router-dom': 'ReactRouterDOM',
   },
   optimization: {
     // vendor bundle
