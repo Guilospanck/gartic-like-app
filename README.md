@@ -1,6 +1,39 @@
 # Frontend
 This is the frontend part of the Gartic-Like Application.
 
+- ✅ Choose your name
+- ✅ Choose your room or create a new one
+
+<div align="center">
+<img align="center" alt="part1" src="https://user-images.githubusercontent.com/22435398/144692015-873f8782-8039-4ef0-9f22-fa378e19f434.gif" style="max-width: 100%;">
+</div>
+<br>
+
+- ✅ Multiple colors to draw
+- ✅ Know which player is currently drawing
+- ✅ Know which participants are in the room
+- ✅ Progress Bar shows you how much time you have to draw or to get it right
+
+<div align="center">
+<img align="center" alt="part2" src="https://user-images.githubusercontent.com/22435398/144692178-5b3f711d-84b5-4e86-a60b-b129d1724395.gif" style="max-width: 100%;">
+</div>
+<br>
+
+- ✅ Clear and erase functions
+- ✅ Chat between participants
+
+<div align="center">
+<img align="center" alt="part3" src="https://user-images.githubusercontent.com/22435398/144692253-8b759e6e-6441-4b1c-8c21-5f0d2e214774.gif" style="max-width: 100%;">
+</div>
+<br>
+
+- ✅ Multiple clients
+- ✅ Multiple rooms
+
+<div align="center">
+<img align="center" alt="part4" src="https://user-images.githubusercontent.com/22435398/144692340-570641ac-8ac5-4bd4-ac58-eb1fb99a08cc.gif" style="max-width: 100%;">
+</div>
+
 ## Installation
 Git clone this repository
 ```bash
@@ -72,7 +105,7 @@ and add this to your `webpack.common.js`:
 - [x] Show them on the messages box.
 - [x] Create a simple Go backend to handle requests.
 - [ ] Add interaction when user exits room while drawing.
-- [ ] Add which desing will be drawn.
-- [ ] Add function to get chat messages adn verify if user got it right.
+- [ ] Add which design will be drawn.
+- [ ] Add function to read chat messages and verify if user got it right.
 - [ ] Add score function when user is right about a design being drawn.
 - [ ] Add tests.
