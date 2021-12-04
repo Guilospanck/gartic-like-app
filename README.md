@@ -35,6 +35,11 @@ This is the frontend part of the Gartic-Like Application.
 </div>
 
 ## Installation
+
+👉 You can follow the README from the [PKG Gartic Deploy](https://github.com/Guilospanck/pkg-gartic-deploy) that uses Docker-Compose in order to build this application for you OR:
+
+
+
 Git clone this repository
 ```bash
 git clone https://github.com/Guilospanck/gartic-like-app.git
@@ -48,6 +53,8 @@ git clone https://github.com/Guilospanck/gartic-go-backend.git
 Be sure to have <code>NodeJS</code> (at least version v14), <code>Yarn</code> and <code>Go</code> installed.
 
 ## Running
+
+First follow the instructions to run the backend Go part and then:
 
 Cd into gartic-like-app folder, then run
 ```bash
