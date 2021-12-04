@@ -36,8 +36,8 @@ This is the frontend part of the Gartic-Like Application.
 
 ## Installation
 
-👉 You can follow the README from the [PKG Gartic Deploy](https://github.com/Guilospanck/pkg-gartic-deploy) that uses Docker-Compose in order to build this application for you OR:
-
+### Using Docker-Compose
+You can follow the README from the [PKG Gartic Deploy](https://github.com/Guilospanck/pkg-gartic-deploy) that uses Docker-Compose to build the whole application. If you don't want to use Docker-Compose, follow the next instructions.
 
 
 Git clone this repository
