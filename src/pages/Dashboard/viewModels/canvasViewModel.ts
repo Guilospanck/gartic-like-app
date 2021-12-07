@@ -22,7 +22,8 @@ export interface IUseCanvasViewModel {
   onColorButtonClick: (color: string) => void,
   mousePosition: MousePositionInterface,
   strokeStyle: string,
-  usernameRef: React.MutableRefObject<string>
+  usernameRef: React.MutableRefObject<string>,
+  drawing: string
 }
 
 export const useCanvasViewModel = () => {
@@ -50,7 +51,8 @@ export const useCanvasViewModel = () => {
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, canvasConfigsAndCoordinatesState,
     drawersTurn,
-    drawersTurnProgressBarPercentage } = useContext(DashboardContext)
+    drawersTurnProgressBarPercentage,
+    drawing } = useContext(DashboardContext)
 
   const initialCanvasSetup = () => {
     const canvas = canvasRef.current
@@ -262,6 +264,7 @@ export const useCanvasViewModel = () => {
     onColorButtonClick,
     mousePosition,
     strokeStyle,
-    usernameRef
+    usernameRef,
+    drawing
   }
 }

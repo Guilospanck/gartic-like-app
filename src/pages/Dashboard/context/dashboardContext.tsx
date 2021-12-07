@@ -13,7 +13,9 @@ interface IDashboardContext {
   drawersTurn: string,
   setDrawersTurn: (drawer: string) => void,
   drawersTurnProgressBarPercentage: number,
-  updateProgressBar: () => void
+  updateProgressBar: () => void,
+  drawing: string,
+  setDrawing: (drawing: string) => void
 }
 
 export const DashboardContext = createContext<IDashboardContext | null>(null)
@@ -29,6 +31,7 @@ export const DashboardContextProvider = ({ children }) => {
   const [participantsInTheRoom, setParticipantsInTheRoom] = useState([])
 
   const [drawersTurn, setDrawersTurn] = useState("")
+  const [drawing, setDrawing] = useState("")
 
   const [drawersTurnProgressBarPercentage, setDrawersTurnProgressBarPercentage] = useState(0)
 
@@ -61,7 +64,9 @@ export const DashboardContextProvider = ({ children }) => {
     drawersTurn,
     setDrawersTurn,
     drawersTurnProgressBarPercentage,
-    updateProgressBar
+    updateProgressBar,
+    drawing,
+    setDrawing
   }
 
   return <DashboardContext.Provider value={defaultContext}> {children} </DashboardContext.Provider>

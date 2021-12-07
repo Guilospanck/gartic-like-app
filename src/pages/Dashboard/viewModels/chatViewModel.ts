@@ -29,8 +29,8 @@ export const useChatViewModel = () => {
   const { socketRef, usernameRef, roomRef,
     coordinatesRef, setCanvasConfigsAndCoordinatesState,
     participantsInTheRoom, setParticipantsInTheRoom,
-    setDrawersTurn,
-    drawersTurnProgressBarPercentage, updateProgressBar } = useContext(DashboardContext)
+    setDrawersTurn, updateProgressBar,
+    drawing, setDrawing } = useContext(DashboardContext)
 
   const [username] = useState(query.get('username'))
   const [room] = useState(query.get('room'))
@@ -71,12 +71,17 @@ export const useChatViewModel = () => {
       if (event?.data) {
         const data = JSON.parse(event.data)
 
+        // set drawing
+        if (data.drawing) {
+          setDrawing(data.drawing)
+        }
+
         // set participants turn
-        if(data.timestamp){
+        if (data.timestamp) {
           setDrawersTurn(data.username)
           updateProgressBar()
           return
-        }
+        }        
 
         // broadcast when a new user enters the room
         if (data.participants) {
@@ -136,15 +141,24 @@ export const useChatViewModel = () => {
   }
 
   const sendMessage = () => {
+    let messageToSend = message
+    let didPlayerWin = false
+
+    if(message === drawing){
+      messageToSend = `${username} got it right! The word was "${drawing}".`
+      didPlayerWin = true
+    }
+
     const msgToSend: JsonData = {
       username: username,
       room: room,
-      message,
+      message: messageToSend,
       date: new Date().toLocaleString('pt-br'),
       close: false,
       canvasCoordinates: null,
       canvasConfigs: null,
-    }
+      didPlayerWin
+    }    
 
     socket.send(JSON.stringify(msgToSend))
     setMessage("")
@@ -165,7 +179,7 @@ export const useChatViewModel = () => {
     })
     setCanvasConfigsAndCoordinatesState(canvasConfigsAndCoordinatesArray)
   }
- 
+
 
   return {
     sendMessage,

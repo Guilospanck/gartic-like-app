@@ -46,7 +46,7 @@ export const CanvasView = ({ viewModel }: CanvasViewModelProps) => {
           {
             viewModel.drawersTurn ? (
               viewModel.drawersTurn === viewModel.usernameRef.current ?
-                <PlayerTurnName>Your Turn</PlayerTurnName>
+                <PlayerTurnName>Your Turn. You must draw a <b>{viewModel.drawing}</b></PlayerTurnName>
                 :
                 <PlayerTurnName>Player's Turn: <b>{viewModel.drawersTurn}</b></PlayerTurnName>
             ) :

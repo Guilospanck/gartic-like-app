@@ -6,6 +6,7 @@ export type JsonData = {
   close: boolean,
   canvasCoordinates?: string
   canvasConfigs?: string // CanvasConfig
+  didPlayerWin?: boolean
 }
 
 export type CanvasConfigType = {
