@@ -106,6 +106,8 @@ and add this to your `webpack.common.js`:
 }
 ```
 
+> Open SVG file in a text editor and remove width and height attributes from the root node in order to change the width and height.
+
 ## TODO
 - [x] Add responsiveness.
 - [x] Send messages.
